@@ -22,7 +22,7 @@ export interface PokemonResponse {
 
 export interface Ability {
     ability: NamedUrl;
-    is_hidden: string;
+    is_hidden: boolean;
 }
 
 export interface Cries {
