@@ -2,6 +2,7 @@ import { PokemonTypesEnum } from "../enums/PokemonTypesEnum";
 
 export interface Pokemon {
     id: number;
+    photoUrl: string;
     name: string;
     cry: string;
     height: number;

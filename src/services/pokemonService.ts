@@ -20,8 +20,12 @@ const PokemonService = {
         const response = await fetch(url);
         const data = (await response.json()) as PokemonResponse;
 
+        // Parse information
+        const photoId = data.id.toString().padStart(3, "0");
+        const photoUrl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${photoId}.png`;
         const pokemon: Pokemon = {
             id: data.id,
+            photoUrl,
             height: data.height,
             weight: data.weight,
             cry: data.cries.latest,
