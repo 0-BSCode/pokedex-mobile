@@ -36,7 +36,9 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <Text>Open up App.tsx to start working on your app!</Text>
+            <Text className="mx-5 text-2xl font-black text-center">
+                Open up App.tsx to start working on your app!
+            </Text>
             <ScrollView>
                 {pokemonList.map((p) => (
                     <View key={p.id}>
