@@ -1,3 +1,4 @@
+import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect } from "react";
@@ -10,6 +11,7 @@ import {
     View
 } from "react-native";
 
+import useFontHook from "./src/hooks/useFontHook";
 import PokemonService from "./src/services/pokemonService";
 import usePageStore from "./src/stores/pageStore";
 import usePokemonStore from "./src/stores/pokemonStore";
@@ -20,6 +22,8 @@ NativeWindStyleSheet.setOutput({
 });
 
 export default function App() {
+    const { isFontLoaded } = useFontHook();
+
     const { pokemonList, setPokemonList } = usePokemonStore();
     const { pageNumber, setPageNumber } = usePageStore();
 
@@ -39,9 +43,13 @@ export default function App() {
         fetchPokemonInformation();
     }, [pageNumber]);
 
+    if (!isFontLoaded) {
+        return <Text>Loading...</Text>;
+    }
+
     return (
         <View style={styles.container}>
-            <Text className="mx-5 text-2xl font-black text-center">
+            <Text className="mx-5 text-2xl text-center font-chakra-light">
                 Open up App.tsx to start working on your app!
             </Text>
             <ScrollView>
@@ -74,6 +82,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#aaa",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        fontFamily: "Chakra-Regular"
+    },
+    textTitle: {
+        fontFamily: "Chakra-Regular"
     }
 });
