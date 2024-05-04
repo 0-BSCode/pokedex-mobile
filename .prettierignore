@@ -5,3 +5,6 @@ assets
 .expo/
 dist/
 web-build/
+
+.husky/
+assets
