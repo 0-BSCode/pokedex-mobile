@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { NativeWindStyleSheet } from "nativewind";
 import { useEffect } from "react";
 import {
     Button,
@@ -13,6 +14,10 @@ import PokemonService from "./src/services/pokemonService";
 import usePageStore from "./src/stores/pageStore";
 import usePokemonStore from "./src/stores/pokemonStore";
 import { Pokemon } from "./src/types/interfaces/Pokemon";
+
+NativeWindStyleSheet.setOutput({
+    default: "native"
+});
 
 export default function App() {
     const { pokemonList, setPokemonList } = usePokemonStore();
