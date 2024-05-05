@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect } from "react";
@@ -7,13 +8,14 @@ import {
     ScrollView,
     StyleSheet,
     Text,
-    View
+    View,
+    SafeAreaView
 } from "react-native";
 
-import PokemonService from "./src/services/pokemonService";
-import usePageStore from "./src/stores/pageStore";
-import usePokemonStore from "./src/stores/pokemonStore";
-import { Pokemon } from "./src/types/interfaces/Pokemon";
+import PokemonService from "../src/services/pokemonService";
+import usePageStore from "../src/stores/pageStore";
+import usePokemonStore from "../src/stores/pokemonStore";
+import { Pokemon } from "../src/types/interfaces/Pokemon";
 
 NativeWindStyleSheet.setOutput({
     default: "native"
@@ -40,10 +42,16 @@ export default function App() {
     }, [pageNumber]);
 
     return (
-        <View style={styles.container}>
-            <Text className="mx-5 text-2xl font-black text-center">
+        <SafeAreaView style={styles.container}>
+            <Text className="mx-5 text-2xl font-black text-center ">
                 Open up App.tsx to start working on your app!
             </Text>
+            <Button
+                onPress={() => {
+                    router.navigate("/home");
+                }}
+                title="Go to Home Page"
+            />
             <ScrollView>
                 {pokemonList.map((p) => (
                     <View key={p.id}>
@@ -65,7 +73,7 @@ export default function App() {
                 title="Load More"
             />
             <StatusBar style="auto" />
-        </View>
+        </SafeAreaView>
     );
 }
 
