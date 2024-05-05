@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect } from "react";
@@ -10,8 +11,6 @@ import {
     View,
     SafeAreaView
 } from "react-native";
-
-import { router } from "expo-router";
 
 import PokemonService from "../src/services/pokemonService";
 import usePageStore from "../src/stores/pageStore";
@@ -45,7 +44,7 @@ export default function App() {
     return (
         <SafeAreaView style={styles.container}>
             <Text className="mx-5 text-2xl font-black text-center ">
-                Open up App.tsx to start working on your app!!!
+                Open up App.tsx to start working on your app!
             </Text>
             <Button
                 onPress={() => {
