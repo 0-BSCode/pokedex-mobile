@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect } from "react";
@@ -7,15 +8,16 @@ import {
     ScrollView,
     StyleSheet,
     Text,
-    View
+    View,
+    SafeAreaView
 } from "react-native";
 
-import determineTypeColor from "./src/_utils/determineTypeColor";
-import useFontHook from "./src/hooks/useFontHook";
-import PokemonService from "./src/services/pokemonService";
-import usePageStore from "./src/stores/pageStore";
-import usePokemonStore from "./src/stores/pokemonStore";
-import { Pokemon } from "./src/types/interfaces/Pokemon";
+import determineTypeColor from "../src/_utils/determineTypeColor";
+import useFontHook from "../src/hooks/useFontHook";
+import PokemonService from "../src/services/pokemonService";
+import usePageStore from "../src/stores/pageStore";
+import usePokemonStore from "../src/stores/pokemonStore";
+import { Pokemon } from "../src/types/interfaces/Pokemon";
 
 NativeWindStyleSheet.setOutput({
     default: "native"
@@ -48,20 +50,29 @@ export default function App() {
     }
 
     return (
-        <View className="pt-10 flex gap-10 flex-1">
-            <Text className="mx-5 text-2xl text-center font-chakra-light">
+        <SafeAreaView style={styles.container}>
+            <Text className="mx-5 text-2xl font-black text-center ">
                 Open up App.tsx to start working on your app!
             </Text>
-            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+            <Button
+                onPress={() => {
+                    router.navigate("/home");
+                }}
+                title="Go to Home Page"
+            />
+            <ScrollView>
                 <View className="flex flex-wrap gap-2">
                     {pokemonList.map((p) => (
-                        <View
-                            key={p.id}
-                            style={{
-                                backgroundColor: determineTypeColor(p.types[0])
-                            }}
-                            className="flex-1 p-4 flex-row"
-                        >
+                        <View key={p.id}>
+                            <Text>{p.name}</Text>
+                            <Image
+                                style={{
+                                    backgroundColor: determineTypeColor(
+                                        p.types[0]
+                                    )
+                                }}
+                                className="flex-1 p-4 flex-row"
+                            />
                             <View className="flex">
                                 <Text>{p.id}</Text>
                                 <Text>{p.name}</Text>
@@ -91,7 +102,7 @@ export default function App() {
                 <Text>Hello</Text>
             </View>
             <StatusBar style="auto" />
-        </View>
+        </SafeAreaView>
     );
 }
 
