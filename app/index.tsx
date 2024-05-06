@@ -52,6 +52,12 @@ export default function App() {
                 }}
                 title="Go to Home Page"
             />
+            <Button
+                onPress={() => {
+                    router.navigate("/details/1");
+                }}
+                title="Go to Details"
+            />
             <ScrollView>
                 {pokemonList.map((p) => (
                     <View key={p.id}>
