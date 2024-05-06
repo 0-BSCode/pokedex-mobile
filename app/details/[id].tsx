@@ -1,20 +1,25 @@
 import { useLocalSearchParams } from "expo-router";
 import { View, Image, Text, StyleSheet } from "react-native";
 
+import usePokemonStore from "../../src/stores/pokemonStore";
+
 export default function DetailsPage() {
     const { id } = useLocalSearchParams();
+    const { pokemonList } = usePokemonStore();
+
+    const viewedPokemon = pokemonList[Number(id) - 1];
 
     return (
         <View className="flex-1 px-4 py-8 bg-white">
             <View className="flex flex-row items-center justify-between mb-8">
-                <Text className="text-2xl font-bold">Bulbasaur</Text>
+                <Text className="text-2xl font-bold">{viewedPokemon.name}</Text>
                 <Text className="text-lg text-gray-500">#001</Text>
             </View>
             <View className="flex flex-row">
-                {/* <Image
-                    source={require("./bulbasaur.png")}
+                <Image
+                    src={viewedPokemon.photoUrl}
                     className="w-24 h-24 mr-4"
-                /> */}
+                />
                 <View className="flex-1">
                     <Text className="mb-2 text-base">Species: Seed</Text>
                     <Text className="mb-2 text-base">
