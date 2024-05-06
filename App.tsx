@@ -1,4 +1,3 @@
-import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect } from "react";
@@ -11,6 +10,7 @@ import {
     View
 } from "react-native";
 
+import determineTypeColor from "./src/_utils/determineTypeColor";
 import useFontHook from "./src/hooks/useFontHook";
 import PokemonService from "./src/services/pokemonService";
 import usePageStore from "./src/stores/pageStore";
@@ -48,30 +48,48 @@ export default function App() {
     }
 
     return (
-        <View style={styles.container}>
+        <View className="pt-10 flex gap-10 flex-1">
             <Text className="mx-5 text-2xl text-center font-chakra-light">
                 Open up App.tsx to start working on your app!
             </Text>
-            <ScrollView>
-                {pokemonList.map((p) => (
-                    <View key={p.id}>
-                        <Text>{p.name}</Text>
-                        <Image
+            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+                <View className="flex flex-wrap gap-2">
+                    {pokemonList.map((p) => (
+                        <View
+                            key={p.id}
                             style={{
-                                width: 50,
-                                height: 50
+                                backgroundColor: determineTypeColor(p.types[0])
                             }}
-                            source={{ uri: p.photoUrl }}
-                            alt={`${p.name} Photo`}
-                        />
-                    </View>
-                ))}
+                            className="flex-1 p-4 flex-row"
+                        >
+                            <View className="flex">
+                                <Text>{p.id}</Text>
+                                <Text>{p.name}</Text>
+                                {p.types.map((t) => (
+                                    <View key={`${p.id}-${t}`}>
+                                        <Text>{t}</Text>
+                                    </View>
+                                ))}
+                            </View>
+                            <Image
+                                style={{
+                                    width: 50,
+                                    height: 50
+                                }}
+                                source={{ uri: p.photoUrl }}
+                                alt={`${p.name} Photo`}
+                            />
+                        </View>
+                    ))}
+                </View>
+                <Button
+                    onPress={() => setPageNumber(pageNumber + 1)}
+                    title="Load More"
+                />
             </ScrollView>
-
-            <Button
-                onPress={() => setPageNumber(pageNumber + 1)}
-                title="Load More"
-            />
+            <View>
+                <Text>Hello</Text>
+            </View>
             <StatusBar style="auto" />
         </View>
     );
@@ -87,5 +105,10 @@ const styles = StyleSheet.create({
     },
     textTitle: {
         fontFamily: "Chakra-Regular"
+    },
+    scrollViewContainer: {
+        display: "flex",
+        flexWrap: "wrap",
+        alignItems: "center"
     }
 });
