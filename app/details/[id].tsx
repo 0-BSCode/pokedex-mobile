@@ -11,29 +11,36 @@ export default function DetailsPage() {
     const viewedPokemon = pokemonList[Number(id) - 1];
 
     return (
-        <View className="flex-1 px-5 py-8 bg-white">
-            <View className="flex flex-row items-center justify-between mb-8">
-                <Text className="text-2xl font-bold">
-                    {convertToTitleCase(viewedPokemon.name)}
-                </Text>
-                <Text className="text-lg text-gray-500">#001</Text>
-            </View>
-            <View className="flex flex-row gap-2 ">
-                <Text className="px-6 py-2 text-base bg-gray-200 rounded-3xl">
-                    Grass
-                </Text>
-                <Text className="px-6 py-2 text-base bg-gray-200 opacity-25 rounded-3xl">
-                    Poison
-                </Text>
-            </View>
-            <View className="flex flex-row justify-center">
-                <Image
-                    src={viewedPokemon.photoUrl}
-                    className="mr-4 w-36 h-36"
-                />
+        <View className="flex-1  py-8 bg-[#48d0b0]">
+            <View className="px-5">
+                <View className="flex flex-row items-center justify-between mb-4">
+                    <Text className="text-3xl font-black text-white">
+                        {convertToTitleCase(viewedPokemon.name)}
+                    </Text>
+                    <Text className="text-lg text-gray-500">#001</Text>
+                </View>
+                <View className="flex flex-row gap-2 ">
+                    <View className="bg-white/50 rounded-3xl">
+                        <Text className="px-6 py-2 font-bold text-white ">
+                            Grass
+                        </Text>
+                    </View>
+
+                    <View className="bg-white/50 rounded-3xl">
+                        <Text className="px-6 py-2 font-bold text-white ">
+                            Poison
+                        </Text>
+                    </View>
+                </View>
+                <View className="flex flex-row justify-center">
+                    <Image
+                        src={viewedPokemon.photoUrl}
+                        className="mr-4 w-52 h-52"
+                    />
+                </View>
             </View>
 
-            <View className="mt-8">
+            <View className="h-full px-5 pt-8 mt-8 bg-white rounded-3xl">
                 <Text className="mb-2 text-base">Species: Seed</Text>
                 <Text className="mb-2 text-base">Height: 23.6" (0.70 cm)</Text>
                 <Text className="mb-2 text-base">
