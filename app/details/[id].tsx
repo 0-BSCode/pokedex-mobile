@@ -1,7 +1,8 @@
 import { useLocalSearchParams } from "expo-router";
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, Image, Text } from "react-native";
 
 import convertToTitleCase from "../../src/_utils/convertToTitleCase";
+import DetailsTab from "../../src/components/DetailsTabs";
 import usePokemonStore from "../../src/stores/pokemonStore";
 
 export default function DetailsPage() {
@@ -9,6 +10,8 @@ export default function DetailsPage() {
     const { pokemonList } = usePokemonStore();
 
     const viewedPokemon = pokemonList[Number(id) - 1];
+
+    console.log(viewedPokemon);
 
     return (
         <View className="flex-1  py-8 bg-[#48d0b0]">
@@ -34,46 +37,58 @@ export default function DetailsPage() {
                 </View>
                 <View className="flex flex-row justify-center">
                     <Image
-                        src={viewedPokemon.photoUrl}
+                        source={{ uri: viewedPokemon.photoUrl }}
                         className="mr-4 w-52 h-52"
                     />
                 </View>
             </View>
 
             <View className="h-full px-5 pt-5 mt-8 bg-white rounded-3xl">
-                <View className="flex flex-row justify-between py-4 text-md">
-                    <Text>About</Text>
-                    <Text>Base Stats</Text>
-                    <Text>Evolution</Text>
-                    <Text>Moves</Text>
-                </View>
+                <DetailsTab />
+
+                <Text className="pb-3 text-lg font-bold">Pokemon Details</Text>
                 <View className="flex flex-row gap-10">
-                    <View className="flex ">
-                        <Text className="mb-2 text-base">Species</Text>
-                        <Text className="mb-2 text-base">Height</Text>
-                        <Text className="mb-2 text-base">Weight</Text>
-                        <Text className="mb-2 text-base">Abilities</Text>
+                    <View className="flex">
+                        <Text className="mb-2 text-gray-500 text-md">Name</Text>
+                        <Text className="mb-2 text-gray-500 text-md ">
+                            Height
+                        </Text>
+                        <Text className="mb-2 text-gray-500 text-md">
+                            Weight
+                        </Text>
+                        <Text className="mb-2 text-gray-500 text-md">
+                            Base Experience
+                        </Text>
+                        <Text className="mb-2 text-gray-500 text-md">
+                            Abilities
+                        </Text>
+                        <Text className="mb-2 text-gray-500 text-md">
+                            Types
+                        </Text>
                     </View>
                     <View className="flex ">
-                        <Text className="mb-2 text-base">Seed</Text>
-                        <Text className="mb-2 text-base">Height</Text>
-                        <Text className="mb-2 text-base">Weight</Text>
-                        <Text className="mb-2 text-base">Abilities</Text>
-                    </View>
-                </View>
-                <View className="flex">
-                    <Text className="text-lg font-bold">Breeding</Text>
-                    <View className="flex flex-row gap-10">
-                        <View className="flex">
-                            <Text className="mb-2 text-base">Gender</Text>
-                            <Text className="mb-2 text-base">Egg Groups</Text>
-                            <Text className="mb-2 text-base">Egg Cycle</Text>
-                        </View>
-                        <View className="flex ">
-                            <Text className="mb-2 text-base">Egg Groups</Text>
-                            <Text className="mb-2 text-base">Egg Groups</Text>
-                            <Text className="mb-2 text-base">Egg Cycle</Text>
-                        </View>
+                        <Text className="mb-2 text-base-900 text-md">
+                            {convertToTitleCase(viewedPokemon.name)}
+                        </Text>
+                        <Text className="mb-2 text-base-900 text-md">
+                            {viewedPokemon.height}
+                        </Text>
+                        <Text className="mb-2 text-base-900 text-md">
+                            {viewedPokemon.weight}
+                        </Text>
+                        <Text className="mb-2 text-base-900 text-md">
+                            {viewedPokemon.baseExperience}
+                        </Text>
+                        <Text className="mb-2 text-base-900 text-md">
+                            {viewedPokemon.abilities
+                                .map((a) => convertToTitleCase(a.name))
+                                .join(", ")}
+                        </Text>
+                        <Text className="mb-2 text-base-900 text-md">
+                            {viewedPokemon.types
+                                .map((a) => convertToTitleCase(a))
+                                .join(", ")}
+                        </Text>
                     </View>
                 </View>
             </View>
