@@ -18,7 +18,11 @@ const OverviewCard = ({ pokemon }: OverviewCardProps) => {
                 width: 160,
                 height: 120,
                 position: "relative",
-                borderRadius: 6
+                borderRadius: 6,
+                shadowColor: "black",
+                shadowOpacity: 0.3,
+                shadowOffset: { height: 1, width: 0 },
+                shadowRadius: 3
             }}
         >
             <View style={{ display: "flex" }}>
