@@ -28,7 +28,7 @@ export default function AboutTab({ viewedPokemon }: AboutTabProps) {
                     <Text className="mb-2 text-base-900 text-md">
                         {convertToTitleCase(viewedPokemon.name)}
                     </Text>
-                    <Text className="mb-2 text-base-900 text-md">
+                    <Text className="mb-2 font-semibold text-base-900 text-md">
                         {viewedPokemon.height}
                     </Text>
                     <Text className="mb-2 text-base-900 text-md">

@@ -6,11 +6,11 @@ import {
 } from "../../_utils/getStatBarLengthAndColor";
 import type { Pokemon } from "../../types/interfaces/Pokemon";
 
-interface AboutTabProps {
+interface StatsTabProps {
     viewedPokemon: Pokemon;
 }
 
-export default function StatsTab({ viewedPokemon }: AboutTabProps) {
+export default function StatsTab({ viewedPokemon }: StatsTabProps) {
     return (
         <View>
             <Text className="pb-3 text-lg font-bold">Pokemon Stats</Text>
