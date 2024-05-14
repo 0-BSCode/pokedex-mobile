@@ -77,9 +77,18 @@ export default function App() {
                     title="Load More"
                     containerStyles={{
                         backgroundColor: "skyblue",
-                        marginTop: 6
+                        marginTop: 12,
+                        display: "flex",
+                        alignItems: "center",
+                        paddingVertical: 16,
+                        borderRadius: 12
                     }}
-                    textStyles={{ color: "white" }}
+                    textStyles={{
+                        color: "white",
+                        fontFamily: "Chakra-Regular",
+                        letterSpacing: 2.5,
+                        fontWeight: "700"
+                    }}
                 />
             </ScrollView>
             <View>
