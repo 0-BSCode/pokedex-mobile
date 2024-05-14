@@ -1,5 +1,6 @@
 import { Image, Text, View } from "react-native";
 
+import capitalizeString from "../../_utils/capitalizeString";
 import determineTypeColor from "../../_utils/determineTypeColor";
 import { Pokemon } from "../../types/interfaces/Pokemon";
 
@@ -20,17 +21,38 @@ const OverviewCard = ({ pokemon }: OverviewCardProps) => {
                 borderRadius: 6
             }}
         >
-            <Image className="flex-1 p-4 flex-row" />
-            <View className="flex">
-                <Text style={{ fontFamily: "Chakra-Regular" }}>
+            <View style={{ display: "flex" }}>
+                <Text
+                    style={{
+                        fontFamily: "Chakra-Regular",
+                        fontWeight: "100",
+                        textAlign: "right",
+                        color: "whitesmoke",
+                        fontSize: 12
+                    }}
+                >
                     {pokemon.id.toString().padStart(3, "0")}
                 </Text>
-                <Text>{pokemon.name}</Text>
-                {pokemon.types.map((t) => (
-                    <View key={`${pokemon.id}-${t}`}>
-                        <Text>{t}</Text>
-                    </View>
-                ))}
+                <Text
+                    style={{
+                        fontFamily: "Chakra-Regular",
+                        fontWeight: "700",
+                        color: "white",
+                        letterSpacing: 2,
+                        fontSize: 16
+                    }}
+                >
+                    {capitalizeString(pokemon.name)}
+                </Text>
+                <View style={{ display: "flex", gap: 3, marginTop: 8 }}>
+                    {pokemon.types.map((t) => (
+                        <View key={`${pokemon.id}-${t}`}>
+                            <Text style={{ color: "white", fontSize: 12 }}>
+                                {capitalizeString(t)}
+                            </Text>
+                        </View>
+                    ))}
+                </View>
             </View>
             <Image
                 style={{
@@ -38,7 +60,8 @@ const OverviewCard = ({ pokemon }: OverviewCardProps) => {
                     height: 72,
                     position: "absolute",
                     bottom: 12,
-                    right: 12
+                    right: 12,
+                    zIndex: -1
                 }}
                 source={{ uri: pokemon.photoUrl }}
                 alt={`${pokemon.name} Photo`}

@@ -3,7 +3,6 @@ import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect } from "react";
 import {
-    Button,
     Image,
     ScrollView,
     StyleSheet,
@@ -13,6 +12,7 @@ import {
 } from "react-native";
 
 import determineTypeColor from "../src/_utils/determineTypeColor";
+import Button from "../src/components/Button";
 import OverviewCard from "../src/components/OverviewCard";
 import useFontHook from "../src/hooks/useFontHook";
 import PokemonService from "../src/services/pokemonService";
@@ -52,14 +52,9 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <Text className="text-2xl text-center font-black">Pokedex</Text>
-            <Button
-                onPress={() => {
-                    router.navigate("/home");
-                }}
-                title="Go to Home Page"
-            />
-            {/* <ScrollView style={styles.scrollViewContainer} contentContainerStyle={{flex: 1, flexDirection: "row", flexWrap: "wrap"}}> */}
+            <Text className="text-2xl text-center font-black font-chakra">
+                Pokedex
+            </Text>
             <ScrollView
                 style={styles.scrollViewContainer}
                 contentContainerStyle={{
@@ -76,9 +71,15 @@ export default function App() {
                         <OverviewCard key={p.id} pokemon={p} />
                     ))}
                 </View>
+
                 <Button
                     onPress={() => setPageNumber(pageNumber + 1)}
                     title="Load More"
+                    containerStyles={{
+                        backgroundColor: "skyblue",
+                        marginTop: 6
+                    }}
+                    textStyles={{ color: "white" }}
                 />
             </ScrollView>
             <View>
@@ -97,7 +98,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         fontFamily: "Chakra-Regular",
         paddingVertical: 32,
-        maxWidth: "100%"
+        maxWidth: "100%",
+        paddingHorizontal: 12
     },
     scrollViewContainer: {
         width: "100%"
