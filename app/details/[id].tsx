@@ -1,11 +1,14 @@
 import { useLocalSearchParams } from "expo-router";
+import { useState } from "react";
 import { View, Image, Text } from "react-native";
 
 import convertToTitleCase from "../../src/_utils/convertToTitleCase";
+import AboutTab from "../../src/components/AboutTab";
 import DetailsTab from "../../src/components/DetailsTabs";
 import usePokemonStore from "../../src/stores/pokemonStore";
 
 export default function DetailsPage() {
+    const [openTab, setOpenTab] = useState<number>(1);
     const { id } = useLocalSearchParams();
     const { pokemonList } = usePokemonStore();
 
@@ -44,53 +47,9 @@ export default function DetailsPage() {
             </View>
 
             <View className="h-full px-5 pt-5 mt-8 bg-white rounded-3xl">
-                <DetailsTab />
+                <DetailsTab setOpenTab={setOpenTab} />
 
-                <Text className="pb-3 text-lg font-bold">Pokemon Details</Text>
-                <View className="flex flex-row gap-10">
-                    <View className="flex">
-                        <Text className="mb-2 text-gray-500 text-md">Name</Text>
-                        <Text className="mb-2 text-gray-500 text-md ">
-                            Height
-                        </Text>
-                        <Text className="mb-2 text-gray-500 text-md">
-                            Weight
-                        </Text>
-                        <Text className="mb-2 text-gray-500 text-md">
-                            Base Experience
-                        </Text>
-                        <Text className="mb-2 text-gray-500 text-md">
-                            Abilities
-                        </Text>
-                        <Text className="mb-2 text-gray-500 text-md">
-                            Types
-                        </Text>
-                    </View>
-                    <View className="flex ">
-                        <Text className="mb-2 text-base-900 text-md">
-                            {convertToTitleCase(viewedPokemon.name)}
-                        </Text>
-                        <Text className="mb-2 text-base-900 text-md">
-                            {viewedPokemon.height}
-                        </Text>
-                        <Text className="mb-2 text-base-900 text-md">
-                            {viewedPokemon.weight}
-                        </Text>
-                        <Text className="mb-2 text-base-900 text-md">
-                            {viewedPokemon.baseExperience}
-                        </Text>
-                        <Text className="mb-2 text-base-900 text-md">
-                            {viewedPokemon.abilities
-                                .map((a) => convertToTitleCase(a.name))
-                                .join(", ")}
-                        </Text>
-                        <Text className="mb-2 text-base-900 text-md">
-                            {viewedPokemon.types
-                                .map((a) => convertToTitleCase(a))
-                                .join(", ")}
-                        </Text>
-                    </View>
-                </View>
+                {openTab === 1 && <AboutTab viewedPokemon={viewedPokemon} />}
             </View>
         </View>
     );
