@@ -13,6 +13,7 @@ import {
 } from "react-native";
 
 import determineTypeColor from "../src/_utils/determineTypeColor";
+import OverviewCard from "../src/components/OverviewCard";
 import useFontHook from "../src/hooks/useFontHook";
 import PokemonService from "../src/services/pokemonService";
 import usePageStore from "../src/stores/pageStore";
@@ -50,47 +51,29 @@ export default function App() {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text className="mx-5 text-2xl font-black text-center ">
-                Open up App.tsx to start working on your app!
-            </Text>
+        <View style={styles.container}>
+            <Text className="text-2xl text-center font-black">Pokedex</Text>
             <Button
                 onPress={() => {
                     router.navigate("/home");
                 }}
                 title="Go to Home Page"
             />
-            <ScrollView>
-                <View className="flex flex-wrap gap-2">
+            {/* <ScrollView style={styles.scrollViewContainer} contentContainerStyle={{flex: 1, flexDirection: "row", flexWrap: "wrap"}}> */}
+            <ScrollView
+                style={styles.scrollViewContainer}
+                contentContainerStyle={{
+                    maxWidth: "100%",
+                    paddingVertical: 24
+                }}
+            >
+                {/* Pokemon List */}
+                <View
+                    className="flex flex-row flex-wrap justify-center"
+                    style={{ gap: 12 }}
+                >
                     {pokemonList.map((p) => (
-                        <View key={p.id}>
-                            <Text>{p.name}</Text>
-                            <Image
-                                style={{
-                                    backgroundColor: determineTypeColor(
-                                        p.types[0]
-                                    )
-                                }}
-                                className="flex-1 p-4 flex-row"
-                            />
-                            <View className="flex">
-                                <Text>{p.id}</Text>
-                                <Text>{p.name}</Text>
-                                {p.types.map((t) => (
-                                    <View key={`${p.id}-${t}`}>
-                                        <Text>{t}</Text>
-                                    </View>
-                                ))}
-                            </View>
-                            <Image
-                                style={{
-                                    width: 50,
-                                    height: 50
-                                }}
-                                source={{ uri: p.photoUrl }}
-                                alt={`${p.name} Photo`}
-                            />
-                        </View>
+                        <OverviewCard key={p.id} pokemon={p} />
                     ))}
                 </View>
                 <Button
@@ -99,27 +82,24 @@ export default function App() {
                 />
             </ScrollView>
             <View>
-                <Text>Hello</Text>
+                <Text className="font-chakra">Hello</Text>
             </View>
             <StatusBar style="auto" />
-        </SafeAreaView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#aaa",
+        backgroundColor: "white",
         alignItems: "center",
         justifyContent: "center",
-        fontFamily: "Chakra-Regular"
-    },
-    textTitle: {
-        fontFamily: "Chakra-Regular"
+        fontFamily: "Chakra-Regular",
+        paddingVertical: 32,
+        maxWidth: "100%"
     },
     scrollViewContainer: {
-        display: "flex",
-        flexWrap: "wrap",
-        alignItems: "center"
+        width: "100%"
     }
 });
