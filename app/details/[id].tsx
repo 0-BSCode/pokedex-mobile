@@ -5,6 +5,7 @@ import { View, Image, Text } from "react-native";
 import convertToTitleCase from "../../src/_utils/convertToTitleCase";
 import AboutTab from "../../src/components/AboutTab";
 import DetailsTab from "../../src/components/DetailsTabs";
+import StatsTab from "../../src/components/StatsTab";
 import usePokemonStore from "../../src/stores/pokemonStore";
 
 export default function DetailsPage() {
@@ -17,7 +18,7 @@ export default function DetailsPage() {
     console.log(viewedPokemon);
 
     return (
-        <View className="flex-1  py-8 bg-[#48d0b0]">
+        <View className="flex-1 py-8 bg-[#48d0b0]">
             <View className="px-5">
                 <View className="flex flex-row items-center justify-between mb-4">
                     <Text className="text-3xl font-black text-white">
@@ -50,6 +51,7 @@ export default function DetailsPage() {
                 <DetailsTab setOpenTab={setOpenTab} openTab={openTab} />
 
                 {openTab === 1 && <AboutTab viewedPokemon={viewedPokemon} />}
+                {openTab === 2 && <StatsTab viewedPokemon={viewedPokemon} />}
             </View>
         </View>
     );
