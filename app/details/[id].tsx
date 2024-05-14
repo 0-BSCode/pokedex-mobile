@@ -5,7 +5,6 @@ import { View, Image, Text } from "react-native";
 import convertToTitleCase from "../../src/_utils/convertToTitleCase";
 import AboutTab from "../../src/components/AboutTab";
 import DetailsTab from "../../src/components/DetailsTabs";
-import EvolutionTab from "../../src/components/EvolutionsTab";
 import MovesTab from "../../src/components/MovesTab";
 import StatsTab from "../../src/components/StatsTab";
 import usePokemonStore from "../../src/stores/pokemonStore";
@@ -54,10 +53,7 @@ export default function DetailsPage() {
 
                 {openTab === 1 && <AboutTab viewedPokemon={viewedPokemon} />}
                 {openTab === 2 && <StatsTab viewedPokemon={viewedPokemon} />}
-                {openTab === 3 && (
-                    <EvolutionTab viewedPokemon={viewedPokemon} />
-                )}
-                {openTab === 4 && <MovesTab viewedPokemon={viewedPokemon} />}
+                {openTab === 3 && <MovesTab viewedPokemon={viewedPokemon} />}
             </View>
         </View>
     );

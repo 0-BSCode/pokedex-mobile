@@ -13,7 +13,7 @@ export default function DetailsTab({ setOpenTab, openTab }: AboutTabProps) {
             : "block py-3 font-semibold text-gray-600 hover:text-blue-500 focus:outline-none";
 
     return (
-        <View className="flex flex-row justify-between pb-4 ">
+        <View className="flex flex-row gap-5 pb-4 ">
             <Pressable onPress={() => setOpenTab(1)}>
                 <Text className={isActiveTab(1)}>About</Text>
             </Pressable>
@@ -21,10 +21,7 @@ export default function DetailsTab({ setOpenTab, openTab }: AboutTabProps) {
                 <Text className={isActiveTab(2)}>Base Stats</Text>
             </Pressable>
             <Pressable onPress={() => setOpenTab(3)}>
-                <Text className={isActiveTab(3)}>Evolution</Text>
-            </Pressable>
-            <Pressable onPress={() => setOpenTab(4)}>
-                <Text className={isActiveTab(4)}>Moves</Text>
+                <Text className={isActiveTab(3)}>Moves</Text>
             </Pressable>
         </View>
     );
