@@ -47,7 +47,7 @@ export default function DetailsPage() {
             </View>
 
             <View className="h-full px-5 pt-5 mt-8 bg-white rounded-3xl">
-                <DetailsTab setOpenTab={setOpenTab} />
+                <DetailsTab setOpenTab={setOpenTab} openTab={openTab} />
 
                 {openTab === 1 && <AboutTab viewedPokemon={viewedPokemon} />}
             </View>
