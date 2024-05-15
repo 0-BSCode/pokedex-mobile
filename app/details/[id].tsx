@@ -5,6 +5,7 @@ import { View, Image, Text } from "react-native";
 import convertToTitleCase from "../../src/_utils/convertToTitleCase";
 import determineTypeColor from "../../src/_utils/determineTypeColor";
 import AboutTab from "../../src/components/AboutTab";
+import DetailsHeader from "../../src/components/DetailsHeader";
 import DetailsTab from "../../src/components/DetailsTabs";
 import MovesTab from "../../src/components/MovesTab";
 import StatsTab from "../../src/components/StatsTab";
@@ -26,6 +27,7 @@ export default function DetailsPage() {
                 backgroundColor: determineTypeColor(viewedPokemon.types[0])
             }}
         >
+            <DetailsHeader />
             <View className="px-5">
                 <View className="flex flex-row items-center justify-between mb-4">
                     <Text className="text-3xl text-white font-chakra-bold">

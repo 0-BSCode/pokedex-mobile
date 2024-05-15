@@ -62,7 +62,6 @@ export default function App() {
                     maxWidth: "100%",
                     paddingVertical: 24
                 }}
-
             >
                 {/* Pokemon List */}
                 <View
