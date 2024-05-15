@@ -9,8 +9,8 @@ interface AboutTabProps {
 export default function DetailsTab({ setOpenTab, openTab }: AboutTabProps) {
     const isActiveTab = (tabNum) =>
         openTab === tabNum
-            ? "block py-3 font-bold text-black border-b-2 border-blue-500 hover:text-blue-500 focus:outline-none"
-            : "block py-3 font-semibold text-gray-600 hover:text-blue-500 focus:outline-none";
+            ? "block py-3 text-xl font-bold text-black border-b-2 border-blue-500 hover:text-blue-500 focus:outline-none"
+            : "block py-3 text-xl font-semibold text-gray-600 hover:text-blue-500 focus:outline-none";
 
     return (
         <View className="flex flex-row gap-5 pb-4 ">

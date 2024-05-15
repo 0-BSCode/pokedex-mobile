@@ -10,39 +10,41 @@ interface AboutTabProps {
 export default function AboutTab({ viewedPokemon }: AboutTabProps) {
     return (
         <View>
-            <Text className="pb-3 text-lg font-bold">Pokemon Details</Text>
-            <View className="flex flex-row gap-10">
+            <Text className="pb-3 text-2xl font-bold">Pokemon Details</Text>
+            <View className="flex flex-row gap-10 ">
                 <View className="flex">
-                    <Text className="mb-2 text-gray-500 text-md">Name</Text>
-                    <Text className="mb-2 text-gray-500 text-md ">Height</Text>
-                    <Text className="mb-2 text-gray-500 text-md">Weight</Text>
-                    <Text className="mb-2 text-gray-500 text-md">
+                    <Text className="mb-2 text-base text-gray-500">Name</Text>
+                    <Text className="mb-2 text-base text-gray-500 ">
+                        Height
+                    </Text>
+                    <Text className="mb-2 text-base text-gray-500">Weight</Text>
+                    <Text className="mb-2 text-base text-gray-500">
                         Base Experience
                     </Text>
-                    <Text className="mb-2 text-gray-500 text-md">
+                    <Text className="mb-2 text-base text-gray-500">
                         Abilities
                     </Text>
-                    <Text className="mb-2 text-gray-500 text-md">Types</Text>
+                    <Text className="mb-2 text-base text-gray-500">Types</Text>
                 </View>
                 <View className="flex ">
-                    <Text className="mb-2 text-base-900 text-md">
+                    <Text className="mb-2 text-base text-base-900">
                         {convertToTitleCase(viewedPokemon.name)}
                     </Text>
-                    <Text className="mb-2 font-semibold text-base-900 text-md">
+                    <Text className="mb-2 text-base font-semibold text-base-900">
                         {viewedPokemon.height}
                     </Text>
-                    <Text className="mb-2 text-base-900 text-md">
+                    <Text className="mb-2 text-base text-base-900">
                         {viewedPokemon.weight}
                     </Text>
-                    <Text className="mb-2 text-base-900 text-md">
+                    <Text className="mb-2 text-base text-base-900">
                         {viewedPokemon.baseExperience}
                     </Text>
-                    <Text className="mb-2 text-base-900 text-md">
+                    <Text className="mb-2 text-base text-base-900">
                         {viewedPokemon.abilities
                             .map((a) => convertToTitleCase(a.name))
                             .join(", ")}
                     </Text>
-                    <Text className="mb-2 text-base-900 text-md">
+                    <Text className="mb-2 text-base text-base-900">
                         {viewedPokemon.types
                             .map((a) => convertToTitleCase(a))
                             .join(", ")}

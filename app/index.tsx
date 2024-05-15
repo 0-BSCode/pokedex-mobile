@@ -9,7 +9,8 @@ import {
     StyleSheet,
     Text,
     View,
-    SafeAreaView
+    SafeAreaView,
+    Pressable
 } from "react-native";
 
 import PokemonService from "../src/services/pokemonService";
@@ -61,15 +62,21 @@ export default function App() {
             <ScrollView>
                 {pokemonList.map((p) => (
                     <View key={p.id}>
-                        <Text>{p.name}</Text>
-                        <Image
-                            style={{
-                                width: 50,
-                                height: 50
+                        <Pressable
+                            onPress={() => {
+                                router.navigate(`/details/${p.id}`);
                             }}
-                            source={{ uri: p.photoUrl }}
-                            alt={`${p.name} Photo`}
-                        />
+                        >
+                            <Text>{p.name}</Text>
+                            <Image
+                                style={{
+                                    width: 50,
+                                    height: 50
+                                }}
+                                source={{ uri: p.photoUrl }}
+                                alt={`${p.name} Photo`}
+                            />
+                        </Pressable>
                     </View>
                 ))}
             </ScrollView>
