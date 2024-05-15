@@ -8,18 +8,6 @@ interface StatsTabProps {
 }
 
 export default function StatsTab({ viewedPokemon }: StatsTabProps) {
-    const getStatBarColor = (statValue: number) => {
-        console.log(statValue);
-
-        if (statValue >= 100) {
-            return "h-full bg-blue-400 block rounded-full";
-        } else if (statValue < 50) {
-            console.log("less");
-            return `h-full bg-red-400 block rounded-full`;
-        } else {
-            return `h-full bg-red-400 block rounded-full`;
-        }
-    };
     return (
         <View>
             <Text className="pb-3 text-2xl font-chakra-bold">
