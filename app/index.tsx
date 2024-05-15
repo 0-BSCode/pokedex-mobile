@@ -8,7 +8,6 @@ import {
     StyleSheet,
     Text,
     View,
-    SafeAreaView,
     Pressable
 } from "react-native";
 
@@ -53,7 +52,7 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <Text className="text-2xl text-center font-black font-chakra">
+            <Text className="text-2xl font-black text-center font-chakra">
                 Pokedex
             </Text>
             <ScrollView

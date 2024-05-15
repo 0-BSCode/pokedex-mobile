@@ -1,10 +1,9 @@
 import { router } from "expo-router";
-import { Text, Button } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Text, View, Button } from "react-native";
 
 export default function Home() {
     return (
-        <SafeAreaView>
+        <View>
             <Text className="mx-5 text-2xl font-black text-center ">
                 Eyyy we at the home page cuhh
             </Text>
@@ -14,6 +13,6 @@ export default function Home() {
                 }}
                 title="Go to Pokemon List"
             />
-        </SafeAreaView>
+        </View>
     );
 }

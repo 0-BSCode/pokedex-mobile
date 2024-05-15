@@ -31,7 +31,6 @@ export default function MovesTab({ viewedPokemon }: MovesTabProps) {
                         </Text>
                     ))}
                 </ScrollView>
-                ;
             </View>
         </ScrollView>
     );
