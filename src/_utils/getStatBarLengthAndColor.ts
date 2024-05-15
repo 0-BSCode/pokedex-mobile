@@ -1,22 +1,16 @@
 const getStatBarColor = (statValue: number) => {
-    console.log(statValue);
-
-    if (statValue >= 100) {
-        return "h-full bg-green-400 block rounded-full ";
-    } else if (statValue < 50) {
-        console.log("less");
-        return `h-full bg-red-400 block rounded-full`;
-    } else {
-        return `h-full bg-green-400 block rounded-full `;
-    }
+    return statValue >= 100
+        ? "h-full bg-blue-400 block rounded-full pr-3"
+        : statValue < 50
+          ? "h-full bg-red-400 block rounded-full"
+          : "h-full bg-green-400 block rounded-full";
 };
 
-const getStatBarLength = (statValue) => {
+const getStatBarLength = (statValue: number) => {
     let style = {};
 
     if (statValue >= 100) {
         style = { width: "100%" };
-        console.log("asdasdgasdhjadh");
     } else if (statValue < 50) {
         style = { width: `${statValue}%` };
     } else {

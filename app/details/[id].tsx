@@ -3,6 +3,7 @@ import { useState } from "react";
 import { View, Image, Text } from "react-native";
 
 import convertToTitleCase from "../../src/_utils/convertToTitleCase";
+import determineTypeColor from "../../src/_utils/determineTypeColor";
 import AboutTab from "../../src/components/AboutTab";
 import DetailsTab from "../../src/components/DetailsTabs";
 import MovesTab from "../../src/components/MovesTab";
@@ -19,26 +20,29 @@ export default function DetailsPage() {
     console.log(viewedPokemon);
 
     return (
-        <View className="flex-1 py-8 bg-[#48d0b0]">
+        <View
+            className="flex-1 py-8 font-chakra"
+            style={{
+                backgroundColor: determineTypeColor(viewedPokemon.types[0])
+            }}
+        >
             <View className="px-5">
                 <View className="flex flex-row items-center justify-between mb-4">
-                    <Text className="text-3xl font-black text-white">
+                    <Text className="text-3xl text-white font-chakra-bold">
                         {convertToTitleCase(viewedPokemon.name)}
                     </Text>
-                    <Text className="text-lg font-bold text-white">#001</Text>
+                    <Text className="text-lg text-white font-chakra-bold">
+                        #{viewedPokemon.id}
+                    </Text>
                 </View>
                 <View className="flex flex-row gap-2 py-0">
-                    <View className="flex items-center justify-center bg-white/50 rounded-3xl">
-                        <Text className="px-5 py-1 font-bold text-white ">
-                            Grass
-                        </Text>
-                    </View>
-
-                    <View className="bg-white/50 rounded-3xl">
-                        <Text className="px-5 py-1 font-bold text-white ">
-                            Poison
-                        </Text>
-                    </View>
+                    {viewedPokemon.types.map((t) => (
+                        <View className="flex items-center justify-center bg-white/50 rounded-3xl">
+                            <Text className="px-5 py-1 text-white font-chakra-bold ">
+                                {convertToTitleCase(t)}
+                            </Text>
+                        </View>
+                    ))}
                 </View>
                 <View className="flex flex-row justify-center">
                     <Image

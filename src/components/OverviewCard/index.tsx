@@ -1,4 +1,5 @@
-import { Image, Text, View } from "react-native";
+import { router } from "expo-router";
+import { Image, Pressable, Text, View } from "react-native";
 
 import capitalizeString from "../../_utils/capitalizeString";
 import determineTypeColor from "../../_utils/determineTypeColor";
@@ -26,37 +27,41 @@ const OverviewCard = ({ pokemon }: OverviewCardProps) => {
             }}
         >
             <View style={{ display: "flex" }}>
-                <Text
-                    style={{
-                        fontFamily: "Chakra-Regular",
-                        fontWeight: "100",
-                        textAlign: "right",
-                        color: "whitesmoke",
-                        fontSize: 12
-                    }}
+                <Pressable
+                    onPress={() => router.replace(`details/${pokemon.id}`)}
                 >
-                    {pokemon.id.toString().padStart(3, "0")}
-                </Text>
-                <Text
-                    style={{
-                        fontFamily: "Chakra-Regular",
-                        fontWeight: "700",
-                        color: "white",
-                        letterSpacing: 2,
-                        fontSize: 16
-                    }}
-                >
-                    {capitalizeString(pokemon.name)}
-                </Text>
-                <View style={{ display: "flex", gap: 3, marginTop: 8 }}>
-                    {pokemon.types.map((t) => (
-                        <View key={`${pokemon.id}-${t}`}>
-                            <Text style={{ color: "white", fontSize: 12 }}>
-                                {capitalizeString(t)}
-                            </Text>
-                        </View>
-                    ))}
-                </View>
+                    <Text
+                        style={{
+                            fontFamily: "Chakra-Regular",
+                            fontWeight: "100",
+                            textAlign: "right",
+                            color: "whitesmoke",
+                            fontSize: 12
+                        }}
+                    >
+                        {pokemon.id.toString().padStart(3, "0")}
+                    </Text>
+                    <Text
+                        style={{
+                            fontFamily: "Chakra-Regular",
+                            fontWeight: "700",
+                            color: "white",
+                            letterSpacing: 2,
+                            fontSize: 16
+                        }}
+                    >
+                        {capitalizeString(pokemon.name)}
+                    </Text>
+                    <View style={{ display: "flex", gap: 3, marginTop: 8 }}>
+                        {pokemon.types.map((t) => (
+                            <View key={`${pokemon.id}-${t}`}>
+                                <Text style={{ color: "white", fontSize: 12 }}>
+                                    {capitalizeString(t)}
+                                </Text>
+                            </View>
+                        ))}
+                    </View>
+                </Pressable>
             </View>
             <Image
                 style={{
