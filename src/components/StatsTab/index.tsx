@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-import { getStatBarLength } from "../../_utils/getStatBarLengthAndColor";
+import getStatBarLengthAndColor from "../../_utils/getStatBarLengthAndColor";
 import type { Pokemon } from "../../types/interfaces/Pokemon";
 
 interface StatsTabProps {
@@ -53,14 +53,12 @@ export default function StatsTab({ viewedPokemon }: StatsTabProps) {
                             <Text className="text-base text-black font-chakra-bold">
                                 {stat.baseStat}
                             </Text>
-                            <View className=" bg-gray-200 h-1.5 rounded-full flex-1  ">
-                                {/* <View
-                                    className={getStatBarColor(stat.baseStat)}
-                                    style={getStatBarLength(stat.baseStat)}
-                                ></View> */}
+                            <View className=" bg-gray-200 h-1.5 rounded-full flex-1 justify-self-end">
                                 <View
-                                    className={getStatBarColor(stat.baseStat)}
-                                    style={getStatBarLength(stat.baseStat)}
+                                    className="block h-full rounded-full"
+                                    style={getStatBarLengthAndColor(
+                                        stat.baseStat
+                                    )}
                                 ></View>
                             </View>
                         </View>

@@ -18,8 +18,6 @@ export default function DetailsPage() {
 
     const viewedPokemon = pokemonList[Number(id) - 1];
 
-    console.log(viewedPokemon);
-
     return (
         <View
             className="flex-1 py-8 font-chakra"
@@ -29,7 +27,7 @@ export default function DetailsPage() {
         >
             <DetailsHeader />
             <View className="px-5">
-                <View className="flex flex-row items-center justify-between mb-4">
+                <View className="flex flex-row items-center justify-between mb-2">
                     <Text className="text-3xl text-white font-chakra-bold">
                         {convertToTitleCase(viewedPokemon.name)}
                     </Text>
@@ -49,12 +47,12 @@ export default function DetailsPage() {
                 <View className="flex flex-row justify-center">
                     <Image
                         source={{ uri: viewedPokemon.photoUrl }}
-                        className="mr-4 w-52 h-52"
+                        className="mr-4 w-60 h-60"
                     />
                 </View>
             </View>
 
-            <View className="h-full px-5 pt-5 mt-8 bg-white rounded-3xl">
+            <View className="h-full px-5 pt-5 mt-2 bg-white rounded-3xl">
                 <DetailsTab setOpenTab={setOpenTab} openTab={openTab} />
 
                 {openTab === 1 && <AboutTab viewedPokemon={viewedPokemon} />}

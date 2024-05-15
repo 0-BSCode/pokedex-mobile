@@ -1,23 +1,15 @@
-const getStatBarColor = (statValue: number) => {
-    return statValue >= 100
-        ? "h-full bg-blue-400 block rounded-full pr-3"
-        : statValue < 50
-          ? "h-full bg-red-400 block rounded-full"
-          : "h-full bg-green-400 block rounded-full";
-};
-
-const getStatBarLength = (statValue: number) => {
+const getStatBarLengthAndColor = (statValue: number) => {
     let style = {};
 
     if (statValue >= 100) {
-        style = { width: "100%" };
+        style = { width: "100%", backgroundColor: "#60a5fa" };
     } else if (statValue < 50) {
-        style = { width: `${statValue}%` };
+        style = { width: `${statValue}%`, backgroundColor: "#f87171" };
     } else {
-        style = { width: `${statValue}%` };
+        style = { width: `${statValue}%`, backgroundColor: "#4ade80" };
     }
 
     return style;
 };
 
-export { getStatBarColor, getStatBarLength };
+export default getStatBarLengthAndColor;
