@@ -3,7 +3,6 @@ import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect } from "react";
 import {
-    Button,
     Image,
     ScrollView,
     StyleSheet,
@@ -13,6 +12,10 @@ import {
     Pressable
 } from "react-native";
 
+import determineTypeColor from "../src/_utils/determineTypeColor";
+import Button from "../src/components/Button";
+import OverviewCard from "../src/components/OverviewCard";
+import useFontHook from "../src/hooks/useFontHook";
 import PokemonService from "../src/services/pokemonService";
 import usePageStore from "../src/stores/pageStore";
 import usePokemonStore from "../src/stores/pokemonStore";
@@ -23,6 +26,8 @@ NativeWindStyleSheet.setOutput({
 });
 
 export default function App() {
+    const { isFontLoaded } = useFontHook();
+
     const { pokemonList, setPokemonList } = usePokemonStore();
     const { pageNumber, setPageNumber } = usePageStore();
 
@@ -42,59 +47,71 @@ export default function App() {
         fetchPokemonInformation();
     }, [pageNumber]);
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <Text className="mx-5 text-2xl font-black text-center ">
-                Open up App.tsx to start working on your app!
-            </Text>
-            <Button
-                onPress={() => {
-                    router.navigate("/home");
-                }}
-                title="Go to Home Page"
-            />
-            <Button
-                onPress={() => {
-                    router.navigate("/details/1");
-                }}
-                title="Go to Details"
-            />
-            <ScrollView>
-                {pokemonList.map((p) => (
-                    <View key={p.id}>
-                        <Pressable
-                            onPress={() => {
-                                router.navigate(`/details/${p.id}`);
-                            }}
-                        >
-                            <Text>{p.name}</Text>
-                            <Image
-                                style={{
-                                    width: 50,
-                                    height: 50
-                                }}
-                                source={{ uri: p.photoUrl }}
-                                alt={`${p.name} Photo`}
-                            />
-                        </Pressable>
-                    </View>
-                ))}
-            </ScrollView>
+    if (!isFontLoaded) {
+        return <Text>Loading...</Text>;
+    }
 
-            <Button
-                onPress={() => setPageNumber(pageNumber + 1)}
-                title="Load More"
-            />
+    return (
+        <View style={styles.container}>
+            <Text className="text-2xl text-center font-black font-chakra">
+                Pokedex
+            </Text>
+            <ScrollView
+                style={styles.scrollViewContainer}
+                contentContainerStyle={{
+                    maxWidth: "100%",
+                    paddingVertical: 24
+                }}
+
+            >
+                {/* Pokemon List */}
+                <View
+                    className="flex flex-row flex-wrap justify-center"
+                    style={{ gap: 12 }}
+                >
+                    {pokemonList.map((p) => (
+                        <OverviewCard key={p.id} pokemon={p} />
+                    ))}
+                </View>
+                <Button
+                    onPress={() => setPageNumber(pageNumber + 1)}
+                    title="Load More"
+                    containerStyles={{
+                        backgroundColor: "skyblue",
+                        marginTop: 12,
+                        display: "flex",
+                        alignItems: "center",
+                        paddingVertical: 16,
+                        borderRadius: 12
+                    }}
+                    textStyles={{
+                        color: "white",
+                        fontFamily: "Chakra-Regular",
+                        letterSpacing: 2.5,
+                        fontWeight: "700"
+                    }}
+                />
+            </ScrollView>
+            <View>
+                <Text className="font-chakra">Hello</Text>
+            </View>
             <StatusBar style="auto" />
-        </SafeAreaView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#aaa",
+        backgroundColor: "white",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        fontFamily: "Chakra-Regular",
+        paddingVertical: 32,
+        maxWidth: "100%",
+        paddingHorizontal: 12
+    },
+    scrollViewContainer: {
+        width: "100%"
     }
 });
