@@ -14,17 +14,9 @@ const OverviewCard = ({ pokemon }: OverviewCardProps) => {
         <View
             key={pokemon.id}
             style={{
-                backgroundColor: determineTypeColor(pokemon.types[0]),
-                padding: 12,
-                width: 160,
-                height: 120,
-                position: "relative",
-                borderRadius: 6,
-                shadowColor: "black",
-                shadowOpacity: 0.3,
-                shadowOffset: { height: 1, width: 0 },
-                shadowRadius: 3
+                backgroundColor: determineTypeColor(pokemon.types[0])
             }}
+            className="p-3 w-40 h-32 relative rounded-md shadow-lg shadow-black"
         >
             <View style={{ display: "flex" }}>
                 <Pressable
