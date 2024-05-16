@@ -44,12 +44,12 @@ export default function App() {
     }
 
     return (
-        <View style={styles.container}>
+        <View className="flex-1 bg-white items-center">
             <Text className="text-2xl font-black text-center font-chakra">
                 Pokedex
             </Text>
             <ScrollView
-                style={styles.scrollViewContainer}
+                className="w-full"
                 contentContainerStyle={{
                     maxWidth: "100%",
                     paddingVertical: 24
@@ -67,20 +67,8 @@ export default function App() {
                 <Button
                     onPress={() => setPageNumber(pageNumber + 1)}
                     title="Load More"
-                    containerStyles={{
-                        backgroundColor: "skyblue",
-                        marginTop: 12,
-                        display: "flex",
-                        alignItems: "center",
-                        paddingVertical: 16,
-                        borderRadius: 12
-                    }}
-                    textStyles={{
-                        color: "white",
-                        fontFamily: "Chakra-Regular",
-                        letterSpacing: 2.5,
-                        fontWeight: "700"
-                    }}
+                    containerClasses="bg-sky-300 mt-3 flex items-center py-4 rounded-2xl"
+                    textClasses="text-white font-chakra-bold tracking-wide"
                 />
             </ScrollView>
             <View>
@@ -90,19 +78,3 @@ export default function App() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "white",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "Chakra-Regular",
-        paddingVertical: 32,
-        maxWidth: "100%",
-        paddingHorizontal: 12
-    },
-    scrollViewContainer: {
-        width: "100%"
-    }
-});

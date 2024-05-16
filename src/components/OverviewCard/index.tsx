@@ -30,32 +30,16 @@ const OverviewCard = ({ pokemon }: OverviewCardProps) => {
                 <Pressable
                     onPress={() => router.replace(`details/${pokemon.id}`)}
                 >
-                    <Text
-                        style={{
-                            fontFamily: "Chakra-Regular",
-                            fontWeight: "100",
-                            textAlign: "right",
-                            color: "whitesmoke",
-                            fontSize: 12
-                        }}
-                    >
+                    <Text className="font-chakra-light text-gray-100 text-right text-xs">
                         {pokemon.id.toString().padStart(3, "0")}
                     </Text>
-                    <Text
-                        style={{
-                            fontFamily: "Chakra-Regular",
-                            fontWeight: "700",
-                            color: "white",
-                            letterSpacing: 2,
-                            fontSize: 16
-                        }}
-                    >
+                    <Text className="font-chakra-bold text-white tracking-wider text-base">
                         {capitalizeString(pokemon.name)}
                     </Text>
-                    <View style={{ display: "flex", gap: 3, marginTop: 8 }}>
+                    <View className="flex gap-1 mt-1">
                         {pokemon.types.map((t) => (
                             <View key={`${pokemon.id}-${t}`}>
-                                <Text style={{ color: "white", fontSize: 12 }}>
+                                <Text className="text-white text-xs font-chakra">
                                     {capitalizeString(t)}
                                 </Text>
                             </View>
@@ -64,14 +48,7 @@ const OverviewCard = ({ pokemon }: OverviewCardProps) => {
                 </Pressable>
             </View>
             <Image
-                style={{
-                    width: 72,
-                    height: 72,
-                    position: "absolute",
-                    bottom: 12,
-                    right: 12,
-                    zIndex: -1
-                }}
+                className="h-20 w-20 absolute bottom-3 right-3 -z-10"
                 source={{ uri: pokemon.photoUrl }}
                 alt={`${pokemon.name} Photo`}
             />

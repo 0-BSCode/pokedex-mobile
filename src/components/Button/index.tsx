@@ -2,20 +2,20 @@ import { TouchableOpacity, Text, ViewStyle, TextStyle } from "react-native";
 
 interface ButtonProps {
     onPress: () => void;
-    containerStyles: ViewStyle;
+    containerClasses: string;
     title: string;
-    textStyles: TextStyle;
+    textClasses: string;
 }
 
 const Button = ({
     onPress,
     title,
-    containerStyles,
-    textStyles
+    containerClasses,
+    textClasses
 }: ButtonProps) => {
     return (
-        <TouchableOpacity onPress={onPress} style={containerStyles}>
-            <Text style={textStyles}>{title}</Text>
+        <TouchableOpacity onPress={onPress} className={containerClasses}>
+            <Text className={textClasses}>{title}</Text>
         </TouchableOpacity>
     );
 };
