@@ -2,14 +2,7 @@ import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect } from "react";
-import {
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
-    SafeAreaView
-} from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import determineTypeColor from "../src/_utils/determineTypeColor";
 import Button from "../src/components/Button";
@@ -52,7 +45,7 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <Text className="text-2xl text-center font-black font-chakra">
+            <Text className="text-2xl font-black text-center font-chakra">
                 Pokedex
             </Text>
             <ScrollView
@@ -71,7 +64,6 @@ export default function App() {
                         <OverviewCard key={p.id} pokemon={p} />
                     ))}
                 </View>
-
                 <Button
                     onPress={() => setPageNumber(pageNumber + 1)}
                     title="Load More"
