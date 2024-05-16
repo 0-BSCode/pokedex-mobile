@@ -2,14 +2,7 @@ import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect } from "react";
-import {
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
-    Pressable
-} from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import determineTypeColor from "../src/_utils/determineTypeColor";
 import Button from "../src/components/Button";

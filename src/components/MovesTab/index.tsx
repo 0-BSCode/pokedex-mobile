@@ -1,5 +1,6 @@
 import { ScrollView, Text, View } from "react-native";
 
+import capitalizeString from "../../_utils/capitalizeString";
 import type { Pokemon } from "../../types/interfaces/Pokemon";
 
 interface MovesTabProps {
@@ -10,8 +11,8 @@ export default function MovesTab({ viewedPokemon }: MovesTabProps) {
     const removeHyphenAndMakeToTitleCase = (str) => {
         const words = str.split("-");
 
-        const capitalizedWords = words.map(
-            (word: string) => word.charAt(0).toUpperCase() + word.slice(1)
+        const capitalizedWords = words.map((word: string) =>
+            capitalizeString(word)
         );
 
         return capitalizedWords.join(" ");

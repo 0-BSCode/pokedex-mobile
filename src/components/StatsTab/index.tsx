@@ -8,6 +8,15 @@ interface StatsTabProps {
 }
 
 export default function StatsTab({ viewedPokemon }: StatsTabProps) {
+    const pokemonStats = [
+        "HP",
+        "Attack",
+        "Defense",
+        "Sp. Attack",
+        "Sp. Defense",
+        "Speed"
+    ];
+
     return (
         <View>
             <Text className="pb-3 text-2xl font-chakra-bold">
@@ -15,25 +24,11 @@ export default function StatsTab({ viewedPokemon }: StatsTabProps) {
             </Text>
             <View className="flex flex-row w-full gap-2 ">
                 <View className="flex mr-2">
-                    <Text className="mb-2 text-base text-gray-500 font-chakra">
-                        HP
-                    </Text>
-
-                    <Text className="mb-2 text-base text-gray-500 font-chakra ">
-                        Attack
-                    </Text>
-                    <Text className="mb-2 text-base text-gray-500 font-chakra">
-                        Defense
-                    </Text>
-                    <Text className="mb-2 text-base text-gray-500 font-chakra">
-                        Sp. Attack
-                    </Text>
-                    <Text className="mb-2 text-base text-gray-500 font-chakra">
-                        Sp. Defense
-                    </Text>
-                    <Text className="mb-2 text-base text-gray-500 font-chakra">
-                        Speed
-                    </Text>
+                    {pokemonStats.map((s) => (
+                        <Text className="mb-2 text-base text-gray-500 font-chakra">
+                            {s}
+                        </Text>
+                    ))}
                 </View>
                 <View className="flex-1">
                     {viewedPokemon.stats.map((stat) => (

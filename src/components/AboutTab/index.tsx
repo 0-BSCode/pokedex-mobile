@@ -8,6 +8,15 @@ interface AboutTabProps {
 }
 
 export default function AboutTab({ viewedPokemon }: AboutTabProps) {
+    const pokemonCharacteristics = [
+        "Name",
+        "Height",
+        "Weight",
+        "Base Experience",
+        "Abilities",
+        "Types"
+    ];
+
     return (
         <View className="font-chakra">
             <Text className="pb-3 text-2xl font-chakra-bold">
@@ -15,24 +24,14 @@ export default function AboutTab({ viewedPokemon }: AboutTabProps) {
             </Text>
             <View className="flex flex-row gap-10 ">
                 <View className="flex">
-                    <Text className="mb-2 text-base text-gray-500 font-chakra">
-                        Name
-                    </Text>
-                    <Text className="mb-2 text-base text-gray-500 font-chakra ">
-                        Height
-                    </Text>
-                    <Text className="mb-2 text-base text-gray-500 font-chakra">
-                        Weight
-                    </Text>
-                    <Text className="mb-2 text-base text-gray-500 font-chakra">
-                        Base Experience
-                    </Text>
-                    <Text className="mb-2 text-base text-gray-500 font-chakra">
-                        Abilities
-                    </Text>
-                    <Text className="mb-2 text-base text-gray-500 font-chakra">
-                        Types
-                    </Text>
+                    {pokemonCharacteristics.map((c) => (
+                        <Text
+                            key={c}
+                            className="mb-2 text-base text-gray-500 font-chakra"
+                        >
+                            {c}
+                        </Text>
+                    ))}
                 </View>
                 <View className="flex ">
                     <Text className="mb-2 text-base text-base-900 font-chakra">
