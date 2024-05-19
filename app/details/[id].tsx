@@ -1,4 +1,5 @@
 import { useLocalSearchParams } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { View, Image, Text } from "react-native";
 
@@ -59,6 +60,10 @@ export default function DetailsPage() {
                 {openTab === 2 && <StatsTab viewedPokemon={viewedPokemon} />}
                 {openTab === 3 && <MovesTab viewedPokemon={viewedPokemon} />}
             </View>
+            <StatusBar
+                style="auto"
+                backgroundColor={determineTypeColor(viewedPokemon.types[0])}
+            />
         </View>
     );
 }

@@ -13,6 +13,7 @@ import {
 
 import determineTypeColor from "../src/_utils/determineTypeColor";
 import Button from "../src/components/Button";
+import Header from "../src/components/Header";
 import OverviewCard from "../src/components/OverviewCard";
 import useFontHook from "../src/hooks/useFontHook";
 import PokemonService from "../src/services/pokemonService";
@@ -52,16 +53,7 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <View className="flex flex-row justify-between w-full px-6">
-                <Text className="text-2xl font-black text-center font-chakra">
-                    Pokedex
-                </Text>
-                <Pressable onPress={() => router.replace("favorites")}>
-                    <Text className="text-2xl font-black text-center font-chakra">
-                        Favorites
-                    </Text>
-                </Pressable>
-            </View>
+            <Header />
 
             <ScrollView
                 style={styles.scrollViewContainer}
