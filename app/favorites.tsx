@@ -14,7 +14,6 @@ export default function Favorites() {
     const { isFontLoaded } = useFontHook();
 
     const { favoritePokemonList } = usePokemonStore();
-    const { pageNumber, setPageNumber } = usePageStore();
 
     if (!isFontLoaded) {
         return <Text>Loading...</Text>;
@@ -31,7 +30,7 @@ export default function Favorites() {
                     paddingVertical: 24
                 }}
             >
-                {/* Pokemon List */}
+                {/* Favorite Pokemon List */}
                 <View
                     className="flex flex-row flex-wrap justify-center"
                     style={{ gap: 12 }}
@@ -40,24 +39,6 @@ export default function Favorites() {
                         <OverviewCard key={p.id} pokemon={p} />
                     ))}
                 </View>
-                <Button
-                    onPress={() => setPageNumber(pageNumber + 1)}
-                    title="Load More"
-                    containerStyles={{
-                        backgroundColor: "skyblue",
-                        marginTop: 12,
-                        display: "flex",
-                        alignItems: "center",
-                        paddingVertical: 16,
-                        borderRadius: 12
-                    }}
-                    textStyles={{
-                        color: "white",
-                        fontFamily: "Chakra-Regular",
-                        letterSpacing: 2.5,
-                        fontWeight: "700"
-                    }}
-                />
             </ScrollView>
             <View>
                 <Text className="font-chakra">Hello</Text>

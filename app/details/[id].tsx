@@ -26,7 +26,7 @@ export default function DetailsPage() {
                 backgroundColor: determineTypeColor(viewedPokemon.types[0])
             }}
         >
-            <DetailsHeader />
+            <DetailsHeader viewedPokemon={viewedPokemon} />
             <View className="px-5">
                 <View className="flex flex-row items-center justify-between mb-2">
                     <Text className="text-3xl text-white font-chakra-bold">
@@ -38,7 +38,10 @@ export default function DetailsPage() {
                 </View>
                 <View className="flex flex-row gap-2 py-0">
                     {viewedPokemon.types.map((t) => (
-                        <View className="flex items-center justify-center bg-white/50 rounded-3xl">
+                        <View
+                            key={t}
+                            className="flex items-center justify-center bg-white/50 rounded-3xl"
+                        >
                             <Text className="px-5 py-1 text-white font-chakra-bold ">
                                 {convertToTitleCase(t)}
                             </Text>

@@ -17,7 +17,7 @@ const usePokemonStore = create<PokemonStore>()((set) => ({
     setPokemonList: (newValue: Pokemon[]) =>
         set((state) => ({ pokemonList: newValue })),
     setFavoritePokemonList: (newValue: Pokemon[]) =>
-        set((state) => ({ pokemonList: newValue }))
+        set((state) => ({ favoritePokemonList: newValue }))
 }));
 
 export default usePokemonStore;
