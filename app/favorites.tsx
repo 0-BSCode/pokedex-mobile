@@ -40,9 +40,6 @@ export default function Favorites() {
                     ))}
                 </View>
             </ScrollView>
-            <View>
-                <Text className="font-chakra">Hello</Text>
-            </View>
             <StatusBar style="auto" />
         </View>
     );
