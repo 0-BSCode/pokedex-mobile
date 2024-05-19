@@ -1,11 +1,20 @@
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
-import { useEffect } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import {
+    Image,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View
+} from "react-native";
 
 import determineTypeColor from "../src/_utils/determineTypeColor";
 import Button from "../src/components/Button";
+import Form from "../src/components/Form";
+import Modal from "../src/components/Modal";
 import OverviewCard from "../src/components/OverviewCard";
 import useFontHook from "../src/hooks/useFontHook";
 import PokemonService from "../src/services/pokemonService";
@@ -19,6 +28,7 @@ NativeWindStyleSheet.setOutput({
 
 export default function App() {
     const { isFontLoaded } = useFontHook();
+    const [isVisible, setIsVisible] = useState(false);
 
     const { pokemonList, setPokemonList } = usePokemonStore();
     const { pageNumber, setPageNumber } = usePageStore();
@@ -45,6 +55,18 @@ export default function App() {
 
     return (
         <View className="flex-1 bg-white items-center">
+            <Button
+                onPress={() => setIsVisible(true)}
+                title="Open modal"
+                textClasses=""
+                containerClasses=""
+            />
+            <Modal
+                title={"Filters"}
+                isVisible={isVisible}
+                onClose={() => setIsVisible(false)}
+                children={<Form />}
+            />
             <Text className="text-2xl font-black text-center font-chakra">
                 Pokedex
             </Text>
