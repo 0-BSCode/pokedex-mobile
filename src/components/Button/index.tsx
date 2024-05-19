@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, ViewStyle, TextStyle } from "react-native";
+import { TouchableOpacity, Text } from "react-native";
 
 interface ButtonProps {
     onPress: () => void;

@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { View, Pressable, Image, Text } from "react-native";
+import { View, Pressable, Text } from "react-native";
 
 export default function DetailsHeader() {
     return (

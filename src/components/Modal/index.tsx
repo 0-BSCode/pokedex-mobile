@@ -1,5 +1,5 @@
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { ReactElement, ReactNode } from "react";
+import { ReactElement } from "react";
 import {
     Modal as ExpoModal,
     View,
