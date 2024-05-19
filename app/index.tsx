@@ -2,7 +2,14 @@ import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+    Pressable
+} from "react-native";
 
 import determineTypeColor from "../src/_utils/determineTypeColor";
 import Button from "../src/components/Button";
@@ -45,9 +52,17 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <Text className="text-2xl font-black text-center font-chakra">
-                Pokedex
-            </Text>
+            <View className="flex flex-row justify-between w-full px-6">
+                <Text className="text-2xl font-black text-center font-chakra">
+                    Pokedex
+                </Text>
+                <Pressable onPress={() => router.replace("favorites")}>
+                    <Text className="text-2xl font-black text-center font-chakra">
+                        Favorites
+                    </Text>
+                </Pressable>
+            </View>
+
             <ScrollView
                 style={styles.scrollViewContainer}
                 contentContainerStyle={{

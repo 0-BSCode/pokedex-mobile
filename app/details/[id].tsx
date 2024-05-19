@@ -32,7 +32,7 @@ export default function DetailsPage() {
                         {convertToTitleCase(viewedPokemon.name)}
                     </Text>
                     <Text className="text-lg text-white font-chakra-bold">
-                        #{viewedPokemon.id}
+                        #{viewedPokemon.id.toString().padStart(3, "0")}
                     </Text>
                 </View>
                 <View className="flex flex-row gap-2 py-0">
