@@ -22,9 +22,9 @@ const Form = () => {
 
     return (
         // Form
-        <View className="flex gap-4 m-1">
+        <View className="flex gap-y-4 m-auto w-11/12">
             {/* Search checkboxes */}
-            <View className="flex gap-y-1">
+            <View className="flex gap-y-2">
                 <Text className="text-white font-chakra-medium">
                     Search by:
                 </Text>
@@ -62,7 +62,7 @@ const Form = () => {
                     </View>
                 </View>
                 <TextInput
-                    className="text-white font-chakra p-1 border-white border-2"
+                    className={`rounded-md text-white font-chakra p-2 border-2 ${isSearchDisabled ? "border-gray-300" : "border-white"}`}
                     placeholderTextColor={"#ddd"}
                     placeholder={
                         isSearchDisabled
@@ -78,10 +78,10 @@ const Form = () => {
                 />
             </View>
             {/* Sort checkboxes */}
-            <View className="flex gap-y-1">
+            <View className="flex gap-y-2">
                 <Text className="text-white font-chakra-medium">Sort by:</Text>
                 {/* Checkboxes */}
-                <View className="flex flex-row gap-4">
+                <View className="flex flex-row gap-x-4">
                     <View className="flex flex-row gap-1 items-center">
                         {/* Checkbox */}
                         <Checkbox
@@ -114,14 +114,14 @@ const Form = () => {
                     </View>
                 </View>
                 {/* Sorting buttons */}
-                <View className="flex gap-4 mt-2">
+                <View className="mt-2 w-full">
                     <Button
                         isDisabled={isSortDisabled}
                         title="Ascending"
                         onPress={() =>
                             filterStore.setSortOrder(SortOrderEnum.ASC)
                         }
-                        containerClasses={`border-2 p-2 ${filterStore.sortOrder === SortOrderEnum.ASC ? "border-green-300" : "border-gray-300"}`}
+                        containerClasses={`mb-1 rounded-md border-2 p-2 ${filterStore.sortOrder === SortOrderEnum.ASC ? "border-green-300" : "border-gray-300"}`}
                         textClasses={`text-center uppercase font-chakra-medium ${filterStore.sortOrder === SortOrderEnum.ASC ? "text-green-300" : "text-gray-300"}`}
                     />
                     <Button
@@ -130,7 +130,7 @@ const Form = () => {
                         onPress={() =>
                             filterStore.setSortOrder(SortOrderEnum.DESC)
                         }
-                        containerClasses={`border-2 p-2 ${filterStore.sortOrder === SortOrderEnum.DESC ? "border-green-300" : "border-gray-300"}`}
+                        containerClasses={`mt-1 rounded-md border-2 p-2 ${filterStore.sortOrder === SortOrderEnum.DESC ? "border-green-300" : "border-gray-300"}`}
                         textClasses={`text-center uppercase font-chakra-medium ${filterStore.sortOrder === SortOrderEnum.DESC ? "text-green-300" : "text-gray-300"}`}
                     />
                 </View>
