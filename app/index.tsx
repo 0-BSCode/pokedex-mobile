@@ -29,7 +29,8 @@ export default function App() {
         sortPokemon,
         searchPokemon
     } = usePokemonStore();
-    const { pageNumber, setPageNumber } = usePageStore();
+    const { pageNumber, setPageNumber, previousPage, setPreviousPage } =
+        usePageStore();
     const filterStore = useFilterStore();
 
     const fetchPokemonInformation = async () => {
@@ -45,7 +46,10 @@ export default function App() {
     };
 
     useEffect(() => {
-        fetchPokemonInformation();
+        if (pageNumber !== previousPage) {
+            fetchPokemonInformation();
+            setPreviousPage(pageNumber);
+        }
     }, [pageNumber]);
 
     // Whenever Pokemon are fetched or filters change, update filteredPokemon to apply filters
