@@ -27,9 +27,7 @@ const OverviewCard = ({ pokemon }: OverviewCardProps) => {
             }}
         >
             <View style={{ display: "flex" }}>
-                <Pressable
-                    onPress={() => router.replace(`details/${pokemon.id}`)}
-                >
+                <Pressable onPress={() => router.push(`details/${pokemon.id}`)}>
                     <Text
                         style={{
                             fontFamily: "Chakra-Regular",
