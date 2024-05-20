@@ -16,7 +16,7 @@ export default function Onboarding() {
     }
 
     if (!isFirstLaunch) {
-        router.navigate("/home");
+        router.replace("/home");
     }
 
     return (
@@ -48,6 +48,7 @@ export default function Onboarding() {
             <View>
                 <Link
                     href="/home"
+                    replace={true}
                     className="w-full py-2 text-center bg-stone-200"
                 >
                     <Text>Proceed</Text>
