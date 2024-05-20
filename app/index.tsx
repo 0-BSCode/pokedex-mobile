@@ -116,6 +116,7 @@ export default function App() {
                         pageStore.setPageNumber(pageStore.pageNumber + 1)
                     }
                     title="Load More"
+                    // TODO: Refactor styles (make it look more in-theme)
                     containerClasses="bg-sky-300 mt-3 flex items-center py-4 rounded-2xl"
                     textClasses="text-white font-chakra-bold tracking-wide"
                     // TODO: Disable on fetch
