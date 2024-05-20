@@ -25,7 +25,7 @@ const Form = () => {
         <View className="flex gap-y-4 m-auto w-11/12">
             {/* Search checkboxes */}
             <View className="flex gap-y-2">
-                <Text className="text-white font-chakra-medium">
+                <Text className="text-white font-chakra-medium text-lg">
                     Search by:
                 </Text>
                 {/* Checkboxes */}
@@ -43,7 +43,9 @@ const Form = () => {
                                 )
                             }
                         />
-                        <Text className="text-white font-chakra">Name</Text>
+                        <Text className="text-white font-chakra text-base">
+                            Name
+                        </Text>
                     </View>
                     <View className="flex flex-row gap-1 items-center">
                         {/* Checkbox */}
@@ -58,11 +60,13 @@ const Form = () => {
                                 )
                             }
                         />
-                        <Text className="text-white font-chakra">ID</Text>
+                        <Text className="text-white font-chakra text-base">
+                            ID
+                        </Text>
                     </View>
                 </View>
                 <TextInput
-                    className={`rounded-md text-white font-chakra p-2 border-2 ${isSearchDisabled ? "border-gray-300" : "border-white"}`}
+                    className={`rounded-md text-white font-chakra p-2 text-base border-2 ${isSearchDisabled ? "border-gray-300" : "border-white"}`}
                     placeholderTextColor={"#ddd"}
                     placeholder={
                         isSearchDisabled
@@ -79,7 +83,9 @@ const Form = () => {
             </View>
             {/* Sort checkboxes */}
             <View className="flex gap-y-2">
-                <Text className="text-white font-chakra-medium">Sort by:</Text>
+                <Text className="text-white font-chakra-medium text-lg">
+                    Sort by:
+                </Text>
                 {/* Checkboxes */}
                 <View className="flex flex-row gap-x-4">
                     <View className="flex flex-row gap-1 items-center">
@@ -95,7 +101,9 @@ const Form = () => {
                                 )
                             }
                         />
-                        <Text className="text-white font-chakra">Name</Text>
+                        <Text className="text-white font-chakra text-base">
+                            Name
+                        </Text>
                     </View>
                     <View className="flex flex-row gap-1 items-center">
                         {/* Checkbox */}
@@ -110,7 +118,9 @@ const Form = () => {
                                 )
                             }
                         />
-                        <Text className="text-white font-chakra">ID</Text>
+                        <Text className="text-white font-chakra text-base">
+                            ID
+                        </Text>
                     </View>
                 </View>
                 {/* Sorting buttons */}
