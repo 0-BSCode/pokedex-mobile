@@ -33,6 +33,7 @@ const Modal = ({ title, isVisible, children, onClose }: ModalProps) => {
 
 export default Modal;
 
+// TODO: Replace with nativewind
 const styles = StyleSheet.create({
     modalContent: {
         height: "50%",
@@ -55,7 +56,8 @@ const styles = StyleSheet.create({
     },
     title: {
         color: "#fff",
-        fontSize: 16
+        fontSize: 16,
+        fontFamily: "Chakra-Regular"
     },
     pickerContainer: {
         flexDirection: "row",
