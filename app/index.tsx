@@ -14,6 +14,7 @@ import {
 import determineTypeColor from "../src/_utils/determineTypeColor";
 import Button from "../src/components/Button";
 import Header from "../src/components/Header";
+import HomeTabs from "../src/components/HomeTabs";
 import OverviewCard from "../src/components/OverviewCard";
 import useFontHook from "../src/hooks/useFontHook";
 import PokemonService from "../src/services/pokemonService";
@@ -90,8 +91,8 @@ export default function App() {
                     }}
                 />
             </ScrollView>
-            <View>
-                <Text className="font-chakra">Hello</Text>
+            <View className="w-[100%] h-12 bg-red-600">
+                <HomeTabs openTab={1} />
             </View>
             <StatusBar style="auto" />
         </View>
@@ -100,16 +101,17 @@ export default function App() {
 
 const styles = StyleSheet.create({
     container: {
+        display: "flex",
         flex: 1,
         backgroundColor: "white",
         alignItems: "center",
         justifyContent: "center",
         fontFamily: "Chakra-Regular",
-        paddingVertical: 32,
-        maxWidth: "100%",
-        paddingHorizontal: 12
+
+        maxWidth: "100%"
     },
     scrollViewContainer: {
-        width: "100%"
+        width: "100%",
+        paddingHorizontal: 12
     }
 });

@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { ScrollView, Text, View } from "react-native";
 
 import Header from "../src/components/Header";
+import HomeTabs from "../src/components/HomeTabs";
 import OverviewCard from "../src/components/OverviewCard";
 import useFontHook from "../src/hooks/useFontHook";
 import usePokemonStore from "../src/stores/pokemonStore";
@@ -16,7 +17,7 @@ export default function Favorites() {
     }
 
     return (
-        <View className="items-center justify-center flex-1 py-[32px] px-[12px] bg-white font-chakra">
+        <View className="items-center justify-center flex-1 bg-white font-chakra">
             <Header openTab={2} />
 
             <ScrollView
@@ -36,6 +37,9 @@ export default function Favorites() {
                     ))}
                 </View>
             </ScrollView>
+            <View className="w-[100%] h-12 bg-red-600">
+                <HomeTabs openTab={2} />
+            </View>
             <StatusBar style="auto" />
         </View>
     );
