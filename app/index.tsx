@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 
 import Button from "../src/components/Button";
@@ -21,7 +21,6 @@ NativeWindStyleSheet.setOutput({
 export default function App() {
     const { isFontLoaded } = useFontHook();
     const [isVisible, setIsVisible] = useState(false);
-    const isFetched = useRef(false);
 
     const {
         pokemonList,
@@ -45,18 +44,8 @@ export default function App() {
         setPokemonList(pokemonInfo);
     };
 
-    // Prevent re-fetching on re-renders (mainly for dev purposes so we don't show multiple pokemon with the same ID)
     useEffect(() => {
-        if (!isFetched.current) {
-            fetchPokemonInformation();
-            isFetched.current = true;
-        }
-    }, []);
-
-    useEffect(() => {
-        if (pageNumber > 0) {
-            fetchPokemonInformation();
-        }
+        fetchPokemonInformation();
     }, [pageNumber]);
 
     // Whenever Pokemon are fetched or filters change, update filteredPokemon to apply filters
@@ -85,24 +74,27 @@ export default function App() {
 
     return (
         <View className="flex-1 bg-white items-center">
-            <Button
-                isDisabled={false}
-                onPress={() => {
-                    setIsVisible(true);
-                }}
-                title="Open modal"
-                textClasses=""
-                containerClasses=""
-            />
             <Modal
                 title={"Filters"}
                 isVisible={isVisible}
                 onClose={() => setIsVisible(false)}
                 children={<Form />}
             />
-            <Text className="text-2xl font-black text-center font-chakra">
-                Pokedex
-            </Text>
+            <View className="w-full flex flex-row justify-between items-center px-2 py-3">
+                <Text className="text-2xl font-black text-center font-chakra">
+                    Pokedex
+                </Text>
+                {/* TODO: Replace with icon */}
+                <Button
+                    isDisabled={false}
+                    onPress={() => {
+                        setIsVisible(true);
+                    }}
+                    title="Open modal"
+                    textClasses="font-chakra"
+                    containerClasses="border-blue-300 border-2 p-1"
+                />
+            </View>
             <ScrollView
                 className="w-full"
                 contentContainerStyle={{
@@ -127,6 +119,7 @@ export default function App() {
                     // TODO: Disable on fetch
                 />
             </ScrollView>
+            {/* TODO: Replace with tabs */}
             <View>
                 <Text className="font-chakra">Hello</Text>
             </View>
