@@ -22,19 +22,12 @@ export default function App() {
     const { isFontLoaded } = useFontHook();
     const [isVisible, setIsVisible] = useState(false);
 
-    const {
-        pokemonList,
-        filteredPokemonList,
-        setPokemonList,
-        sortPokemon,
-        searchPokemon
-    } = usePokemonStore();
-    const { pageNumber, setPageNumber, previousPage, setPreviousPage } =
-        usePageStore();
+    const pokemonStore = usePokemonStore();
+    const pageStore = usePageStore();
     const filterStore = useFilterStore();
 
     const fetchPokemonInformation = async () => {
-        const data = await PokemonService.fetchPage(pageNumber);
+        const data = await PokemonService.fetchPage(pageStore.pageNumber);
         const pokemonInfo: Pokemon[] = [];
 
         for (const result of data.results) {
@@ -42,30 +35,33 @@ export default function App() {
             pokemonInfo.push(pokemon);
         }
 
-        setPokemonList(pokemonInfo);
+        pokemonStore.setPokemonList(pokemonInfo);
     };
 
     useEffect(() => {
-        if (pageNumber !== previousPage) {
+        if (pageStore.pageNumber !== pageStore.previousPage) {
             fetchPokemonInformation();
-            setPreviousPage(pageNumber);
+            pageStore.setPreviousPage(pageStore.pageNumber);
         }
-    }, [pageNumber]);
+    }, [pageStore.pageNumber]);
 
     // Whenever Pokemon are fetched or filters change, update filteredPokemon to apply filters
     useEffect(() => {
         if (filterStore.searchFilterCriteria) {
-            searchPokemon(
+            pokemonStore.searchPokemon(
                 filterStore.searchFilterCriteria,
                 filterStore.searchString
             );
         }
 
         if (filterStore.sortFilterCriteria && filterStore.sortOrder) {
-            sortPokemon(filterStore.sortFilterCriteria, filterStore.sortOrder);
+            pokemonStore.sortPokemon(
+                filterStore.sortFilterCriteria,
+                filterStore.sortOrder
+            );
         }
     }, [
-        pokemonList,
+        pokemonStore.pokemonList,
         filterStore.searchFilterCriteria,
         filterStore.searchString,
         filterStore.sortFilterCriteria,
@@ -111,12 +107,14 @@ export default function App() {
                     className="flex flex-row flex-wrap justify-center"
                     style={{ gap: 12 }}
                 >
-                    {filteredPokemonList.map((p) => (
+                    {pokemonStore.filteredPokemonList.map((p) => (
                         <OverviewCard key={p.id} pokemon={p} />
                     ))}
                 </View>
                 <Button
-                    onPress={() => setPageNumber(pageNumber + 1)}
+                    onPress={() =>
+                        pageStore.setPageNumber(pageStore.pageNumber + 1)
+                    }
                     title="Load More"
                     containerClasses="bg-sky-300 mt-3 flex items-center py-4 rounded-2xl"
                     textClasses="text-white font-chakra-bold tracking-wide"
