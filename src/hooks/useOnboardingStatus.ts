@@ -13,7 +13,7 @@ async function checkIfFirstLaunch() {
     }
 }
 
-const useGetOnboardingStatus = () => {
+const useOnboardingStatus = () => {
     const [isFirstLaunch, setIsFirstLaunch] = useState(false);
     const [isFirstLaunchIsLoading, setIsFirstLaunchIsLoading] = useState(true);
 
@@ -32,4 +32,4 @@ const useGetOnboardingStatus = () => {
     };
 };
 
-export default useGetOnboardingStatus;
+export default useOnboardingStatus;

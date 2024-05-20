@@ -20,21 +20,12 @@
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
-            },
-            "package": "com.luzefiru.pokedex"
+            }
         },
         "web": {
             "bundler": "metro",
             "favicon": "./assets/favicon.png"
         },
-        "plugins": ["expo-router", "expo-font"],
-        "extra": {
-            "router": {
-                "origin": false
-            },
-            "eas": {
-                "projectId": "f0e86d4a-afa8-4a16-bd1c-c1b096c0245c"
-            }
-        }
+        "plugins": ["expo-router", "expo-font"]
     }
 }
