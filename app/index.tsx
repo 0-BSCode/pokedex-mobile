@@ -1,108 +1,58 @@
-import { router } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { NativeWindStyleSheet } from "nativewind";
-import { useEffect } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Link, router } from "expo-router";
+import { Text, View, ScrollView } from "react-native";
+import PagerView from "react-native-pager-view";
 
-import determineTypeColor from "../src/_utils/determineTypeColor";
-import Button from "../src/components/Button";
-import OverviewCard from "../src/components/OverviewCard";
+import Header from "../src/components/Header";
+import OnboardingPage from "../src/components/OnboardingPage";
 import useFontHook from "../src/hooks/useFontHook";
-import PokemonService from "../src/services/pokemonService";
-import usePageStore from "../src/stores/pageStore";
-import usePokemonStore from "../src/stores/pokemonStore";
-import { Pokemon } from "../src/types/interfaces/Pokemon";
+import useOnboardingStatus from "../src/hooks/useOnboardingStatus";
 
-NativeWindStyleSheet.setOutput({
-    default: "native"
-});
-
-export default function App() {
+export default function Onboarding() {
     const { isFontLoaded } = useFontHook();
+    const { isFirstLaunch, isLoading } = useOnboardingStatus();
 
-    const { pokemonList, setPokemonList } = usePokemonStore();
-    const { pageNumber, setPageNumber } = usePageStore();
-
-    const fetchPokemonInformation = async () => {
-        const data = await PokemonService.fetchPage(pageNumber);
-        const pokemonInfo: Pokemon[] = [];
-
-        for (const result of data.results) {
-            const pokemon = await PokemonService.fetchPokemon(result.url);
-            pokemonInfo.push(pokemon);
-        }
-
-        setPokemonList([...pokemonList, ...pokemonInfo]);
-    };
-
-    useEffect(() => {
-        fetchPokemonInformation();
-    }, [pageNumber]);
-
-    if (!isFontLoaded) {
+    if (!isFontLoaded || isLoading) {
         return <Text>Loading...</Text>;
     }
 
+    if (!isFirstLaunch) {
+        router.navigate("/home");
+    }
+
     return (
-        <View style={styles.container}>
-            <Text className="text-2xl font-black text-center font-chakra">
-                Pokedex
-            </Text>
-            <ScrollView
-                style={styles.scrollViewContainer}
-                contentContainerStyle={{
-                    maxWidth: "100%",
-                    paddingVertical: 24
-                }}
-            >
-                {/* Pokemon List */}
-                <View
-                    className="flex flex-row flex-wrap justify-center"
-                    style={{ gap: 12 }}
-                >
-                    {pokemonList.map((p) => (
-                        <OverviewCard key={p.id} pokemon={p} />
-                    ))}
-                </View>
-                <Button
-                    onPress={() => setPageNumber(pageNumber + 1)}
-                    title="Load More"
-                    containerStyles={{
-                        backgroundColor: "skyblue",
-                        marginTop: 12,
-                        display: "flex",
-                        alignItems: "center",
-                        paddingVertical: 16,
-                        borderRadius: 12
-                    }}
-                    textStyles={{
-                        color: "white",
-                        fontFamily: "Chakra-Regular",
-                        letterSpacing: 2.5,
-                        fontWeight: "700"
-                    }}
-                />
+        <View style={{ flex: 1 }}>
+            <ScrollView className="flex" stickyHeaderIndices={[0]}>
+                <Header />
+                <PagerView initialPage={0} useNext={false}>
+                    <OnboardingPage
+                        heading="Welcome to the world of Pokemon!"
+                        body="The world of Pokemon is teeming with unique
+                                creatures to discover and befriend. This journey
+                                starts with your very first catch! But don't
+                                worry, we'll guide you through every step."
+                        imgSrc={require("../assets/img/1x1.png")}
+                    />
+                    <OnboardingPage
+                        heading="Your trusty Pokedex!"
+                        body="The Pokedex is your ultimate companion in the Pokemon world. It's a comprehensive catalog that stores information on every Pokemon you encounter. Use it to learn about their types, moves, and even interesting facts!"
+                        imgSrc={require("../assets/img/1x1.png")}
+                    />
+                    <OnboardingPage
+                        heading="Find your favorites!"
+                        body="As you explore the world, you'll meet many fascinating Pokemon. The ones that truly capture your heart can be favorited! This creates a handy list for you to quickly revisit your favorite Pokemon and learn more about them."
+                        imgSrc={require("../assets/img/1x1.png")}
+                    />
+                </PagerView>
             </ScrollView>
+
             <View>
-                <Text className="font-chakra">Hello</Text>
+                <Link
+                    href="/home"
+                    className="w-full py-2 text-center bg-stone-200"
+                >
+                    <Text>Proceed</Text>
+                </Link>
             </View>
-            <StatusBar style="auto" />
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "white",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "Chakra-Regular",
-        paddingVertical: 32,
-        maxWidth: "100%",
-        paddingHorizontal: 12
-    },
-    scrollViewContainer: {
-        width: "100%"
-    }
-});
