@@ -5,10 +5,6 @@ import { SortOrderEnum } from "../types/enums/SortOrderEnum";
 
 type FilterStore = {
     // Searching
-    nameSearchString: string;
-    setNameSearchString: (value: string) => void;
-    idSearchString: string;
-    setIdSearchString: (value: string) => void;
     searchFilterCriteria: FilterCriteriaEnum | undefined;
     setSearchFilterCriteria: (value: FilterCriteriaEnum) => void;
     searchString: string;
@@ -26,12 +22,6 @@ const useFilterStore = create<FilterStore>()((set) => ({
     searchFilterCriteria: undefined,
     setSearchFilterCriteria: (value: FilterCriteriaEnum) =>
         set((state) => ({ searchFilterCriteria: value })),
-    nameSearchString: "",
-    setNameSearchString: (value: string) =>
-        set((state) => ({ nameSearchString: value })),
-    idSearchString: "",
-    setIdSearchString: (value: string) =>
-        set((state) => ({ idSearchString: value })),
     searchString: "",
     setSearchString: (value: string) =>
         set((state) => ({ searchString: value })),

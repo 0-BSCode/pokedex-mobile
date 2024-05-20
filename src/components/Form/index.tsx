@@ -1,4 +1,5 @@
 import Checkbox from "expo-checkbox";
+import { useEffect } from "react";
 import { Text, TextInput, View } from "react-native";
 
 import useFilterStore from "../../stores/filterStore";
@@ -9,6 +10,15 @@ import Button from "../Button";
 const Form = () => {
     const filterStore = useFilterStore();
 
+    const isSearchDisabled = filterStore.searchFilterCriteria === undefined;
+    const isSearchByName =
+        !isSearchDisabled &&
+        filterStore.searchFilterCriteria === FilterCriteriaEnum.NAME;
+    const isSortDisabled = filterStore.sortFilterCriteria === undefined;
+
+    useEffect(() => {
+        filterStore.setSearchString("");
+    }, [filterStore.searchFilterCriteria]);
     return (
         // Form
         <View className="flex gap-4 m-1">
@@ -53,7 +63,17 @@ const Form = () => {
                 <TextInput
                     className="text-white font-chakra p-1 border-white border-2"
                     placeholderTextColor={"#ddd"}
-                    placeholder="Text here..."
+                    placeholder={
+                        isSearchDisabled
+                            ? "Enter Pokemon Info..."
+                            : `Enter Pokemon ${isSearchByName ? "Name" : "ID"}`
+                    }
+                    editable={!isSearchDisabled}
+                    selectTextOnFocus={!isSearchDisabled}
+                    value={filterStore.searchString}
+                    onChangeText={(text) => {
+                        filterStore.setSearchString(text);
+                    }}
                 />
             </View>
             {/* Sort checkboxes */}
@@ -95,6 +115,7 @@ const Form = () => {
                 {/* Sorting buttons */}
                 <View className="flex gap-4 mt-2">
                     <Button
+                        isDisabled={isSortDisabled}
                         title="Ascending"
                         onPress={() =>
                             filterStore.setSortOrder(SortOrderEnum.ASC)
@@ -103,6 +124,7 @@ const Form = () => {
                         textClasses={`text-center uppercase font-chakra-medium ${filterStore.sortOrder === SortOrderEnum.ASC ? "text-green-300" : "text-gray-300"}`}
                     />
                     <Button
+                        isDisabled={isSortDisabled}
                         title="Descending"
                         onPress={() =>
                             filterStore.setSortOrder(SortOrderEnum.DESC)

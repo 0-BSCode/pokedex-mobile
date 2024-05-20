@@ -9,6 +9,7 @@ import Modal from "../src/components/Modal";
 import OverviewCard from "../src/components/OverviewCard";
 import useFontHook from "../src/hooks/useFontHook";
 import PokemonService from "../src/services/pokemonService";
+import useFilterStore from "../src/stores/filterStore";
 import usePageStore from "../src/stores/pageStore";
 import usePokemonStore from "../src/stores/pokemonStore";
 import { Pokemon } from "../src/types/interfaces/Pokemon";
@@ -21,8 +22,15 @@ export default function App() {
     const { isFontLoaded } = useFontHook();
     const [isVisible, setIsVisible] = useState(false);
 
-    const { pokemonList, setPokemonList } = usePokemonStore();
+    const {
+        pokemonList,
+        filteredPokemonList,
+        setPokemonList,
+        sortPokemon,
+        searchPokemon
+    } = usePokemonStore();
     const { pageNumber, setPageNumber } = usePageStore();
+    const filterStore = useFilterStore();
 
     const fetchPokemonInformation = async () => {
         const data = await PokemonService.fetchPage(pageNumber);
@@ -40,6 +48,26 @@ export default function App() {
         fetchPokemonInformation();
     }, [pageNumber]);
 
+    // Whenever Pokemon are fetched or filters change, update filteredPokemon to apply filters
+    useEffect(() => {
+        if (filterStore.searchFilterCriteria) {
+            searchPokemon(
+                filterStore.searchFilterCriteria,
+                filterStore.searchString
+            );
+        }
+
+        if (filterStore.sortFilterCriteria && filterStore.sortOrder) {
+            sortPokemon(filterStore.sortFilterCriteria, filterStore.sortOrder);
+        }
+    }, [
+        pokemonList,
+        filterStore.searchFilterCriteria,
+        filterStore.searchString,
+        filterStore.sortFilterCriteria,
+        filterStore.sortOrder
+    ]);
+
     if (!isFontLoaded) {
         return <Text>Loading...</Text>;
     }
@@ -47,7 +75,10 @@ export default function App() {
     return (
         <View className="flex-1 bg-white items-center">
             <Button
-                onPress={() => setIsVisible(true)}
+                isDisabled={false}
+                onPress={() => {
+                    setIsVisible(true);
+                }}
                 title="Open modal"
                 textClasses=""
                 containerClasses=""
@@ -73,7 +104,7 @@ export default function App() {
                     className="flex flex-row flex-wrap justify-center"
                     style={{ gap: 12 }}
                 >
-                    {pokemonList.map((p) => (
+                    {filteredPokemonList.map((p) => (
                         <OverviewCard key={p.id} pokemon={p} />
                     ))}
                 </View>
