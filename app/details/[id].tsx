@@ -39,7 +39,7 @@ export default function DetailsPage() {
                 <View className="flex flex-row gap-2 py-0">
                     {viewedPokemon.types.map((t) => (
                         <View
-                            key={t}
+                            key={`${viewedPokemon.id}-${t}`}
                             className="flex items-center justify-center bg-white/50 rounded-3xl"
                         >
                             <Text className="px-5 py-1 text-white font-chakra-bold ">

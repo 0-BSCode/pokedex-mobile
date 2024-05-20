@@ -39,6 +39,7 @@ export default function DetailsHeader({ viewedPokemon }: DetailsHeaderProps) {
                         : handleAddToFavorites
                 }
             >
+                {/* TODO: Replace this with an icon */}
                 <Text className="px-2 py-1 text-xl text-white rounded-md font-chakra-bold bg-white/50">
                     {isFavoritePokemon()
                         ? "Remove from Favorites"
