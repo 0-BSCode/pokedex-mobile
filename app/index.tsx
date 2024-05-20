@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 
 import Button from "../src/components/Button";
@@ -21,6 +21,7 @@ NativeWindStyleSheet.setOutput({
 export default function App() {
     const { isFontLoaded } = useFontHook();
     const [isVisible, setIsVisible] = useState(false);
+    const isFetched = useRef(false);
 
     const {
         pokemonList,
@@ -41,11 +42,21 @@ export default function App() {
             pokemonInfo.push(pokemon);
         }
 
-        setPokemonList([...pokemonList, ...pokemonInfo]);
+        setPokemonList(pokemonInfo);
     };
 
+    // Prevent re-fetching on re-renders (mainly for dev purposes so we don't show multiple pokemon with the same ID)
     useEffect(() => {
-        fetchPokemonInformation();
+        if (!isFetched.current) {
+            fetchPokemonInformation();
+            isFetched.current = true;
+        }
+    }, []);
+
+    useEffect(() => {
+        if (pageNumber > 0) {
+            fetchPokemonInformation();
+        }
     }, [pageNumber]);
 
     // Whenever Pokemon are fetched or filters change, update filteredPokemon to apply filters
@@ -113,6 +124,7 @@ export default function App() {
                     title="Load More"
                     containerClasses="bg-sky-300 mt-3 flex items-center py-4 rounded-2xl"
                     textClasses="text-white font-chakra-bold tracking-wide"
+                    // TODO: Disable on fetch
                 />
             </ScrollView>
             <View>

@@ -19,6 +19,7 @@ const Form = () => {
     useEffect(() => {
         filterStore.setSearchString("");
     }, [filterStore.searchFilterCriteria]);
+
     return (
         // Form
         <View className="flex gap-4 m-1">
