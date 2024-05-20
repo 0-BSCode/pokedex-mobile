@@ -24,6 +24,7 @@ export default function Onboarding() {
             <ScrollView className="flex" stickyHeaderIndices={[0]}>
                 <Header />
                 <PagerView initialPage={0} useNext={false}>
+                    {/* TODO: Change image placeholders */}
                     <OnboardingPage
                         heading="Welcome to the world of Pokemon!"
                         body="The world of Pokemon is teeming with unique
