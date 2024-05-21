@@ -54,7 +54,7 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <Header openTab={1} />
+            <Header />
 
             <ScrollView
                 style={styles.scrollViewContainer}
