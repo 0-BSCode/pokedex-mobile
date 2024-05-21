@@ -1,9 +1,10 @@
 import {
     View,
     Text,
-    Dimensions,
     Image,
-    ImageSourcePropType
+    ImageSourcePropType,
+    Dimensions,
+    Platform
 } from "react-native";
 
 interface Props {
@@ -13,25 +14,20 @@ interface Props {
 }
 
 export default function OnboardingPage({ heading, body, imgSrc }: Props) {
-    const dimensions = Dimensions.get("window");
-    const imgWidth = dimensions.width;
+    const screenWidth =
+        Platform.OS === "web"
+            ? Dimensions.get("window").height / 1.5
+            : Dimensions.get("window").width;
 
     return (
         <View>
-            <View
-                style={{
-                    width: imgWidth,
-                    height: imgWidth,
-                    padding: 20
-                }}
-            >
+            <View className="flex items-center p-5">
                 <Image
-                    className="w-full h-full"
-                    resizeMode="contain"
+                    style={{ width: screenWidth - 40, height: screenWidth }}
                     source={imgSrc}
                 />
             </View>
-            <View className="flex gap-3 px-5 pb-6">
+            <View className="flex gap-3 px-5">
                 <Text className="text-2xl font-chakra-bold">{heading}</Text>
                 <Text className="text-base font-chakra">{body}</Text>
             </View>
