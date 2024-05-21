@@ -10,6 +10,7 @@ import DetailsHeader from "../../src/components/DetailsHeader";
 import DetailsTab from "../../src/components/DetailsTabs";
 import MovesTab from "../../src/components/MovesTab";
 import StatsTab from "../../src/components/StatsTab";
+import TypeIcon from "../../src/components/TypeIcon";
 import usePokemonStore from "../../src/stores/pokemonStore";
 
 export default function DetailsPage() {
@@ -40,9 +41,15 @@ export default function DetailsPage() {
                     {viewedPokemon.types.map((t) => (
                         <View
                             key={`${viewedPokemon.id}-${t}`}
-                            className="flex items-center justify-center bg-white/50 rounded-3xl"
+                            className="flex flex-row items-center px-4 py-1 bg-white/50 rounded-3xl"
                         >
-                            <Text className="px-5 py-1 text-white font-chakra-bold ">
+                            <View className="mr-2">
+                                <TypeIcon type={t} />
+                            </View>
+                            <Text
+                                className="font-chakra-bold"
+                                style={{ color: determineTypeColor(t) }}
+                            >
                                 {convertToTitleCase(t)}
                             </Text>
                         </View>
