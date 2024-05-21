@@ -39,17 +39,17 @@ export default function Onboarding() {
                                 creatures to discover and befriend. This journey
                                 starts with your very first catch! But don't
                                 worry, we'll guide you through every step."
-                        imgSrc={require("../assets/img/1x1.png")}
+                        imgSrc={require("../assets/img/onboarding-1.png")}
                     />
                     <OnboardingPage
                         heading="Your trusty Pokedex!"
                         body="The Pokedex is your ultimate companion in the Pokemon world. It's a comprehensive catalog that stores information on every Pokemon you encounter. Use it to learn about their types, moves, and even interesting facts!"
-                        imgSrc={require("../assets/img/1x1.png")}
+                        imgSrc={require("../assets/img/onboarding-2.png")}
                     />
                     <OnboardingPage
                         heading="Find your favorites!"
                         body="As you explore the world, you'll meet many fascinating Pokemon. The ones that truly capture your heart can be favorited! This creates a handy list for you to quickly revisit your favorite Pokemon and learn more about them."
-                        imgSrc={require("../assets/img/1x1.png")}
+                        imgSrc={require("../assets/img/onboarding-3.png")}
                     />
                 </Swiper>
             </ScrollView>
