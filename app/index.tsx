@@ -1,6 +1,6 @@
 import { Link, router } from "expo-router";
-import { Text, View, ScrollView } from "react-native";
-// import PagerView from "react-native-pager-view";
+import { Text, View, ScrollView, Platform } from "react-native";
+import Swiper from "react-native-swiper";
 
 import Header from "../src/components/Header";
 import OnboardingPage from "../src/components/OnboardingPage";
@@ -21,9 +21,18 @@ export default function Onboarding() {
 
     return (
         <View style={{ flex: 1 }}>
-            <ScrollView className="flex" stickyHeaderIndices={[0]}>
+            <ScrollView
+                className="flex"
+                stickyHeaderIndices={[0]}
+                scrollEnabled={false}
+            >
                 <Header />
-                {/* <PagerView initialPage={0} useNext={false}>
+                <Swiper
+                    autoplay={true}
+                    autoplayTimeout={5}
+                    showsPagination={false}
+                    showsButtons={Platform.OS === "web"}
+                >
                     <OnboardingPage
                         heading="Welcome to the world of Pokemon!"
                         body="The world of Pokemon is teeming with unique
@@ -42,14 +51,14 @@ export default function Onboarding() {
                         body="As you explore the world, you'll meet many fascinating Pokemon. The ones that truly capture your heart can be favorited! This creates a handy list for you to quickly revisit your favorite Pokemon and learn more about them."
                         imgSrc={require("../assets/img/1x1.png")}
                     />
-                </PagerView> */}
+                </Swiper>
             </ScrollView>
 
             <View>
                 <Link
                     href="/home"
                     replace={true}
-                    className="w-full py-2 text-center bg-stone-200"
+                    className="w-full py-3 text-xl text-center text-white bg-red-800 font-chakra-bold"
                 >
                     <Text>Proceed</Text>
                 </Link>
