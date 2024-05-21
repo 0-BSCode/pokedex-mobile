@@ -1,3 +1,9 @@
+import { Link, router } from "expo-router";
+import { Text, View, ScrollView } from "react-native";
+import PagerView from "react-native-pager-view";
+
+import Header from "../src/components/Header";
+import OnboardingPage from "../src/components/OnboardingPage";
 import useFontHook from "../src/hooks/useFontHook";
 import useOnboardingStatus from "../src/hooks/useOnboardingStatus";
 

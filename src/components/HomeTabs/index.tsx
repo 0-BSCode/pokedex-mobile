@@ -15,7 +15,7 @@ export default function HomeTabs({ openTab }: HomeTabsProps) {
         <View className="justify-between flex flex-row flex-1 h-full  w-[100%] ">
             <View className="flex-row items-center justify-center flex-1 h-[100%]  w-[100%]">
                 <Pressable
-                    onPress={() => router.replace("")}
+                    onPress={() => router.replace("home")}
                     className="w-[50%] h-[100%] "
                 >
                     <View className={isOpenTab(1)}>

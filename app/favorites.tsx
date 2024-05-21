@@ -18,10 +18,9 @@ export default function Favorites() {
 
     return (
         <View className="items-center justify-center flex-1 bg-white font-chakra">
-            <Header openTab={2} />
+            <Header />
 
             <ScrollView
-                className=""
                 contentContainerStyle={{
                     maxWidth: "100%",
                     paddingVertical: 24
