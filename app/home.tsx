@@ -1,12 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import Button from "../src/components/Button";
 import Header from "../src/components/Header";
 import HomeTabs from "../src/components/HomeTabs";
 import OverviewCard from "../src/components/OverviewCard";
+import useFontHook from "../src/hooks/useFontHook";
 import PokemonService from "../src/services/pokemonService";
 import useFilterStore from "../src/stores/filterStore";
 import usePageStore from "../src/stores/pageStore";
@@ -18,6 +19,8 @@ NativeWindStyleSheet.setOutput({
 });
 
 export default function App() {
+    const { isFontLoaded } = useFontHook();
+
     const pokemonStore = usePokemonStore();
     const pageStore = usePageStore();
     const filterStore = useFilterStore();
@@ -31,7 +34,11 @@ export default function App() {
             pokemonInfo.push(pokemon);
         }
 
-        pokemonStore.setPokemonList(pokemonInfo);
+        pokemonStore.extendPokemonList(pokemonInfo);
+        pokemonStore.setFilteredPokemonList([
+            ...pokemonStore.filteredPokemonList,
+            ...pokemonInfo
+        ]);
     };
 
     useEffect(() => {
@@ -46,7 +53,8 @@ export default function App() {
         if (filterStore.searchFilterCriteria) {
             pokemonStore.searchPokemon(
                 filterStore.searchFilterCriteria,
-                filterStore.searchString
+                filterStore.searchString,
+                pokemonStore.pokemonList
             );
         }
 
@@ -64,9 +72,17 @@ export default function App() {
         filterStore.sortOrder
     ]);
 
+    useEffect(() => {
+        pokemonStore.setFilteredPokemonList(pokemonStore.pokemonList);
+    }, []);
+
+    if (!isFontLoaded) {
+        return <Text>Loading...</Text>;
+    }
+
     return (
         <View style={styles.container}>
-            <Header openTab={1} />
+            <Header />
             <ScrollView
                 style={styles.scrollViewContainer}
                 contentContainerStyle={{

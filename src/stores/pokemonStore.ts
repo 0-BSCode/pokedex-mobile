@@ -9,14 +9,19 @@ type PokemonStore = {
     favoritePokemonList: Pokemon[];
     filteredPokemonList: Pokemon[];
     pokemonIdx: number;
-    setPokemonList: (value: Pokemon[]) => void;
+    extendPokemonList: (values: Pokemon[]) => void;
+    setFavoritePokemonList: (values: Pokemon[]) => void;
+    setFilteredPokemonList: (values: Pokemon[]) => void;
     setPokemonIdx: (value: number) => void;
-    searchPokemon: (criteria: FilterCriteriaEnum, searchString: string) => void;
+    searchPokemon: (
+        criteria: FilterCriteriaEnum,
+        searchString: string,
+        listToFilter: Pokemon[]
+    ) => void;
     sortPokemon: (
         criteria: FilterCriteriaEnum,
         sortOrder: SortOrderEnum
     ) => void;
-    setFavoritePokemonList: (newValue: Pokemon[]) => void;
 };
 
 const usePokemonStore = create<PokemonStore>()((set) => ({
@@ -25,21 +30,31 @@ const usePokemonStore = create<PokemonStore>()((set) => ({
     filteredPokemonList: [],
     pokemonIdx: -1,
     setPokemonIdx: (value: number) => set((state) => ({ pokemonIdx: value })),
-    setPokemonList: (values: Pokemon[]) =>
+    extendPokemonList: (values: Pokemon[]) =>
         set((state) => ({
-            pokemonList: [...state.pokemonList, ...values],
-            filteredPokemonList: [...state.pokemonList, ...values]
+            pokemonList: [...state.pokemonList, ...values]
         })),
-    searchPokemon: (criteria: FilterCriteriaEnum, searchString: string) =>
+    setFilteredPokemonList: (values: Pokemon[]) =>
+        set((state) => ({
+            filteredPokemonList: values
+        })),
+    setFavoritePokemonList: (values: Pokemon[]) =>
+        set((state) => ({ favoritePokemonList: values })),
+    searchPokemon: (
+        criteria: FilterCriteriaEnum,
+        searchString: string,
+        listToFilter: Pokemon[]
+    ) =>
         set((state) => {
-            let filteredPokemonList = state.pokemonList;
+            let filteredPokemonList = listToFilter;
 
             if (searchString.length) {
                 if (criteria === FilterCriteriaEnum.NAME) {
-                    filteredPokemonList = state.pokemonList.filter((pokemon) =>
-                        pokemon.name
-                            .toLowerCase()
-                            .startsWith(searchString.toLowerCase())
+                    filteredPokemonList = filteredPokemonList.filter(
+                        (pokemon) =>
+                            pokemon.name
+                                .toLowerCase()
+                                .startsWith(searchString.toLowerCase())
                     );
                 }
 
@@ -47,7 +62,7 @@ const usePokemonStore = create<PokemonStore>()((set) => ({
                     criteria === FilterCriteriaEnum.ID &&
                     !isNaN(Number(searchString))
                 ) {
-                    filteredPokemonList = state.pokemonList.filter(
+                    filteredPokemonList = filteredPokemonList.filter(
                         (pokemon) => pokemon.id === Number(searchString)
                     );
                 }
@@ -80,9 +95,7 @@ const usePokemonStore = create<PokemonStore>()((set) => ({
             return {
                 filteredPokemonList: sortedPokemon
             };
-        }),
-    setFavoritePokemonList: (newValue: Pokemon[]) =>
-        set((state) => ({ favoritePokemonList: newValue }))
+        })
 }));
 
 export default usePokemonStore;
