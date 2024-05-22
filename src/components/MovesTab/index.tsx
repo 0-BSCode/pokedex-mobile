@@ -8,7 +8,7 @@ interface MovesTabProps {
 }
 
 export default function MovesTab({ viewedPokemon }: MovesTabProps) {
-    const removeHyphenAndMakeToTitleCase = (str) => {
+    const removeHyphenAndMakeToTitleCase = (str: string) => {
         const words = str.split("-");
 
         const capitalizedWords = words.map((word: string) =>
