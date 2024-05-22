@@ -1,4 +1,5 @@
 import { useLocalSearchParams } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { View, Image, Text } from "react-native";
 
@@ -25,19 +26,22 @@ export default function DetailsPage() {
                 backgroundColor: determineTypeColor(viewedPokemon.types[0])
             }}
         >
-            <DetailsHeader />
+            <DetailsHeader viewedPokemon={viewedPokemon} />
             <View className="px-5">
                 <View className="flex flex-row items-center justify-between mb-2">
                     <Text className="text-3xl text-white font-chakra-bold">
                         {convertToTitleCase(viewedPokemon.name)}
                     </Text>
                     <Text className="text-lg text-white font-chakra-bold">
-                        #{viewedPokemon.id}
+                        #{viewedPokemon.id.toString().padStart(3, "0")}
                     </Text>
                 </View>
                 <View className="flex flex-row gap-2 py-0">
                     {viewedPokemon.types.map((t) => (
-                        <View className="flex items-center justify-center bg-white/50 rounded-3xl">
+                        <View
+                            key={`${viewedPokemon.id}-${t}`}
+                            className="flex items-center justify-center bg-white/50 rounded-3xl"
+                        >
                             <Text className="px-5 py-1 text-white font-chakra-bold ">
                                 {convertToTitleCase(t)}
                             </Text>
@@ -59,6 +63,10 @@ export default function DetailsPage() {
                 {openTab === 2 && <StatsTab viewedPokemon={viewedPokemon} />}
                 {openTab === 3 && <MovesTab viewedPokemon={viewedPokemon} />}
             </View>
+            <StatusBar
+                style="auto"
+                backgroundColor={determineTypeColor(viewedPokemon.types[0])}
+            />
         </View>
     );
 }

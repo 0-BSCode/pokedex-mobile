@@ -1,132 +1,68 @@
-import { StatusBar } from "expo-status-bar";
-import { NativeWindStyleSheet } from "nativewind";
-import { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Link, router } from "expo-router";
+import { Text, View, ScrollView, Platform } from "react-native";
+import Swiper from "react-native-swiper";
 
-import Button from "../src/components/Button";
-import Form from "../src/components/Form";
-import Modal from "../src/components/Modal";
-import OverviewCard from "../src/components/OverviewCard";
+import Header from "../src/components/Header";
+import OnboardingPage from "../src/components/OnboardingPage";
 import useFontHook from "../src/hooks/useFontHook";
-import PokemonService from "../src/services/pokemonService";
-import useFilterStore from "../src/stores/filterStore";
-import usePageStore from "../src/stores/pageStore";
-import usePokemonStore from "../src/stores/pokemonStore";
-import { Pokemon } from "../src/types/interfaces/Pokemon";
+import useOnboardingStatus from "../src/hooks/useOnboardingStatus";
 
-NativeWindStyleSheet.setOutput({
-    default: "native"
-});
-
-export default function App() {
+export default function Onboarding() {
     const { isFontLoaded } = useFontHook();
-    const [isVisible, setIsVisible] = useState(false);
+    const { isFirstLaunch, isLoading } = useOnboardingStatus();
 
-    const pokemonStore = usePokemonStore();
-    const pageStore = usePageStore();
-    const filterStore = useFilterStore();
-
-    const fetchPokemonInformation = async () => {
-        const data = await PokemonService.fetchPage(pageStore.pageNumber);
-        const pokemonInfo: Pokemon[] = [];
-
-        for (const result of data.results) {
-            const pokemon = await PokemonService.fetchPokemon(result.url);
-            pokemonInfo.push(pokemon);
-        }
-
-        pokemonStore.setPokemonList(pokemonInfo);
-    };
-
-    useEffect(() => {
-        if (pageStore.pageNumber !== pageStore.previousPage) {
-            fetchPokemonInformation();
-            pageStore.setPreviousPage(pageStore.pageNumber);
-        }
-    }, [pageStore.pageNumber]);
-
-    // Whenever Pokemon are fetched or filters change, update filteredPokemon to apply filters
-    useEffect(() => {
-        if (filterStore.searchFilterCriteria) {
-            pokemonStore.searchPokemon(
-                filterStore.searchFilterCriteria,
-                filterStore.searchString
-            );
-        }
-
-        if (filterStore.sortFilterCriteria && filterStore.sortOrder) {
-            pokemonStore.sortPokemon(
-                filterStore.sortFilterCriteria,
-                filterStore.sortOrder
-            );
-        }
-    }, [
-        pokemonStore.pokemonList,
-        filterStore.searchFilterCriteria,
-        filterStore.searchString,
-        filterStore.sortFilterCriteria,
-        filterStore.sortOrder
-    ]);
-
-    if (!isFontLoaded) {
+    if (!isFontLoaded || isLoading) {
         return <Text>Loading...</Text>;
     }
 
+    if (!isFirstLaunch) {
+        router.replace("/home");
+    }
+
     return (
-        <View className="flex-1 bg-white items-center">
-            <Modal
-                title={"Filters"}
-                isVisible={isVisible}
-                onClose={() => setIsVisible(false)}
-                children={<Form />}
-            />
-            <View className="w-full flex flex-row justify-between items-center px-2 py-3">
-                <Text className="text-2xl font-black text-center font-chakra">
-                    Pokedex
-                </Text>
-                {/* TODO: Replace with icon */}
-                <Button
-                    isDisabled={false}
-                    onPress={() => {
-                        setIsVisible(true);
-                    }}
-                    title="Open modal"
-                    textClasses="font-chakra"
-                    containerClasses="border-blue-300 border-2 p-1"
-                />
-            </View>
+        <View style={{ flex: 1 }}>
             <ScrollView
-                className="w-full"
-                contentContainerStyle={{
-                    maxWidth: "100%",
-                    paddingVertical: 24
-                }}
+                className="flex"
+                stickyHeaderIndices={[0]}
+                scrollEnabled={false}
             >
-                {/* Pokemon List */}
-                <View
-                    className="flex flex-row flex-wrap justify-center"
-                    style={{ gap: 12 }}
+                <Header />
+                <Swiper
+                    autoplay={true}
+                    autoplayTimeout={5}
+                    showsPagination={false}
+                    showsButtons={Platform.OS === "web"}
                 >
-                    {pokemonStore.filteredPokemonList.map((p) => (
-                        <OverviewCard key={p.id} pokemon={p} />
-                    ))}
-                </View>
-                <Button
-                    onPress={() =>
-                        pageStore.setPageNumber(pageStore.pageNumber + 1)
-                    }
-                    title="Load More"
-                    // TODO: Refactor styles (make it look more in-theme)
-                    containerClasses="bg-sky-300 mt-3 flex items-center py-4 rounded-2xl"
-                    textClasses="text-white font-chakra-bold tracking-wide"
-                    // TODO: Disable on fetch
-                />
+                    <OnboardingPage
+                        heading="Welcome to the world of Pokemon!"
+                        body="The world of Pokemon is teeming with unique
+                                creatures to discover and befriend. This journey
+                                starts with your very first catch! But don't
+                                worry, we'll guide you through every step."
+                        imgSrc={require("../assets/img/onboarding-1.png")}
+                    />
+                    <OnboardingPage
+                        heading="Your trusty Pokedex!"
+                        body="The Pokedex is your ultimate companion in the Pokemon world. It's a comprehensive catalog that stores information on every Pokemon you encounter. Use it to learn about their types, moves, and even interesting facts!"
+                        imgSrc={require("../assets/img/onboarding-2.png")}
+                    />
+                    <OnboardingPage
+                        heading="Find your favorites!"
+                        body="As you explore the world, you'll meet many fascinating Pokemon. The ones that truly capture your heart can be favorited! This creates a handy list for you to quickly revisit your favorite Pokemon and learn more about them."
+                        imgSrc={require("../assets/img/onboarding-3.png")}
+                    />
+                </Swiper>
             </ScrollView>
-            {/* TODO: Replace with tabs */}
+
             <View>
-                <Text className="font-chakra">Hello</Text>
+                <Link
+                    href="/home"
+                    replace={true}
+                    className="w-full py-3 text-xl text-center text-white bg-red-800 font-chakra-bold"
+                >
+                    <Text>Proceed</Text>
+                </Link>
             </View>
-            <StatusBar style="auto" />
         </View>
     );
 }

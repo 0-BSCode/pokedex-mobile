@@ -19,9 +19,7 @@ const OverviewCard = ({ pokemon }: OverviewCardProps) => {
             className="p-3 w-40 h-32 relative rounded-md shadow-lg shadow-black"
         >
             <View style={{ display: "flex" }}>
-                <Pressable
-                    onPress={() => router.replace(`details/${pokemon.id}`)}
-                >
+                <Pressable onPress={() => router.push(`details/${pokemon.id}`)}>
                     <Text className="font-chakra-light text-gray-100 text-right text-xs">
                         {pokemon.id.toString().padStart(3, "0")}
                     </Text>

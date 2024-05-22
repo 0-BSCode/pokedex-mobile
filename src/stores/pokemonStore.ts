@@ -6,6 +6,7 @@ import { Pokemon } from "../types/interfaces/Pokemon";
 
 type PokemonStore = {
     pokemonList: Pokemon[];
+    favoritePokemonList: Pokemon[];
     filteredPokemonList: Pokemon[];
     pokemonIdx: number;
     setPokemonList: (value: Pokemon[]) => void;
@@ -15,10 +16,12 @@ type PokemonStore = {
         criteria: FilterCriteriaEnum,
         sortOrder: SortOrderEnum
     ) => void;
+    setFavoritePokemonList: (newValue: Pokemon[]) => void;
 };
 
 const usePokemonStore = create<PokemonStore>()((set) => ({
     pokemonList: [],
+    favoritePokemonList: [],
     filteredPokemonList: [],
     pokemonIdx: -1,
     setPokemonIdx: (value: number) => set((state) => ({ pokemonIdx: value })),
@@ -77,7 +80,9 @@ const usePokemonStore = create<PokemonStore>()((set) => ({
             return {
                 filteredPokemonList: sortedPokemon
             };
-        })
+        }),
+    setFavoritePokemonList: (newValue: Pokemon[]) =>
+        set((state) => ({ favoritePokemonList: newValue }))
 }));
 
 export default usePokemonStore;
