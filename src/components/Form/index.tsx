@@ -81,8 +81,8 @@ const Form = () => {
                             ? "Enter Pokemon Info..."
                             : `Enter Pokemon ${isSearchByName ? "Name" : "ID"}`
                     }
-                    // editable={!isSearchDisabled}
-                    // selectTextOnFocus={!isSearchDisabled}
+                    editable={!isSearchDisabled}
+                    selectTextOnFocus={!isSearchDisabled}
                     value={filterStore.searchString}
                     onChangeText={(text) => {
                         filterStore.setSearchString(text);
