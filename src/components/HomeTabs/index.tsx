@@ -1,6 +1,8 @@
 import { router } from "expo-router";
 import { View, Text, Pressable } from "react-native";
 
+import usePokemonStore from "../../stores/pokemonStore";
+import useScreenStore from "../../stores/screenStore";
 import { ScreensEnum } from "../../types/enums/ScreensEnum";
 
 interface HomeTabsProps {
@@ -8,16 +10,30 @@ interface HomeTabsProps {
 }
 
 export default function HomeTabs({ openTab }: HomeTabsProps) {
+    const pokemonStore = usePokemonStore();
+    const screenStore = useScreenStore();
+
     const isOpen = (screen: ScreensEnum) =>
         openTab === screen
             ? "flex items-center flex-1 justify-center bg-black/60"
             : "flex items-center flex-1 justify-center bg-black/40";
 
+    const handleOnPress = (newScreen: ScreensEnum) => {
+        console.log(`Going to ${newScreen}`);
+        const newList =
+            newScreen === ScreensEnum.HOME
+                ? pokemonStore.pokemonList
+                : pokemonStore.favoritePokemonList;
+        pokemonStore.setFilteredPokemonList(newList);
+        screenStore.setCurrentScreen(newScreen);
+        router.replace(newScreen);
+    };
+
     return (
         <View className="justify-between flex flex-row flex-1 h-full  w-[100%] ">
             <View className="flex-row items-center justify-center flex-1 h-[100%]  w-[100%]">
                 <Pressable
-                    onPress={() => router.replace(ScreensEnum.HOME)}
+                    onPress={() => handleOnPress(ScreensEnum.HOME)}
                     className="w-[50%] h-[100%] "
                 >
                     <View className={isOpen(ScreensEnum.HOME)}>
@@ -27,7 +43,7 @@ export default function HomeTabs({ openTab }: HomeTabsProps) {
                     </View>
                 </Pressable>
                 <Pressable
-                    onPress={() => router.replace(ScreensEnum.FAVORITES)}
+                    onPress={() => handleOnPress(ScreensEnum.FAVORITES)}
                     className="w-[50%] h-[100%]"
                 >
                     <View className={isOpen(ScreensEnum.FAVORITES)}>

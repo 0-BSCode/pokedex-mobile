@@ -84,11 +84,6 @@ export default function App() {
         filterStore.sortOrder
     ]);
 
-    useEffect(() => {
-        pokemonStore.setFilteredPokemonList(pokemonStore.pokemonList);
-        screenStore.setCurrentScreen(ScreensEnum.HOME);
-    }, []);
-
     if (!isFontLoaded) {
         return <Text>Loading...</Text>;
     }

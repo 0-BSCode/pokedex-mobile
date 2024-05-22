@@ -42,11 +42,6 @@ export default function Favorites() {
         filterStore.sortOrder
     ]);
 
-    useEffect(() => {
-        pokemonStore.setFilteredPokemonList(pokemonStore.favoritePokemonList);
-        screenStore.setCurrentScreen(ScreensEnum.FAVORITES);
-    }, []);
-
     if (!isFontLoaded) {
         return <Text>Loading...</Text>;
     }
