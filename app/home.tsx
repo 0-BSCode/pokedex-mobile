@@ -1,13 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect, useState } from "react";
-import {
-    ActivityIndicator,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View
-} from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, View } from "react-native";
 
 import Button from "../src/components/Button";
 import Header from "../src/components/Header";
@@ -85,7 +79,7 @@ export default function App() {
     ]);
 
     if (!isFontLoaded) {
-        return <Text>Loading...</Text>;
+        return <ActivityIndicator size="large" className="my-3" />;
     }
 
     return (

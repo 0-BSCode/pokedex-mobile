@@ -1,3 +1,4 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { View, Pressable, Text } from "react-native";
 
@@ -34,9 +35,7 @@ export default function DetailsHeader({ viewedPokemon }: DetailsHeaderProps) {
             <Pressable
                 onPress={() => router.replace(screenStore.currentScreen)}
             >
-                <Text className="px-2 py-1 text-xl text-white rounded-md font-chakra-bold bg-white/50">
-                    Back
-                </Text>
+                <Ionicons name="arrow-back-outline" size={32} color="white" />
             </Pressable>
             <Pressable
                 onPress={
@@ -46,10 +45,16 @@ export default function DetailsHeader({ viewedPokemon }: DetailsHeaderProps) {
                 }
             >
                 {/* TODO: Replace this with an icon */}
-                <Text className="px-2 py-1 text-xl text-white rounded-md font-chakra-bold bg-white/50">
-                    {isFavoritePokemon()
-                        ? "Remove from Favorites"
-                        : "Add to Favorites"}
+                <Text className="px-2 py-1 text-xl text-white rounded-md font-chakra-bold ">
+                    {isFavoritePokemon() ? (
+                        <Ionicons name="heart" size={32} color="white" />
+                    ) : (
+                        <Ionicons
+                            name="heart-outline"
+                            size={32}
+                            color="white"
+                        />
+                    )}
                 </Text>
             </Pressable>
         </View>
