@@ -71,7 +71,7 @@ export default function TypeIcon({ type }: Props) {
         case PokemonTypesEnum.FLYING:
             return (
                 <FontAwesome5
-                    name="wind"
+                    name="feather"
                     size={20}
                     color={determineTypeColor(type)}
                 />
