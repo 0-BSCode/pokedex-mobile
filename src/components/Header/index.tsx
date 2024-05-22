@@ -1,8 +1,8 @@
+import { FontAwesome5 } from "@expo/vector-icons";
 import { router, usePathname } from "expo-router";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, TouchableOpacity } from "react-native";
 
 import useFilterStore from "../../stores/filterStore";
-import Button from "../Button";
 import Form from "../Form";
 import Modal from "../Modal";
 
@@ -13,7 +13,7 @@ export default function Header() {
     const isOnIndex = currentRoute === "/";
 
     return (
-        <View className="flex flex-row justify-between w-full px-4 py-5 bg-red-800">
+        <View className="flex flex-row items-center justify-between w-full px-4 py-5 bg-red-800">
             <Modal
                 title={"Filters"}
                 isVisible={filterStore.isVisible}
@@ -26,15 +26,13 @@ export default function Header() {
                 </Text>
             </Pressable>
             {!isOnIndex && (
-                <Button
-                    isDisabled={false}
+                <TouchableOpacity
                     onPress={() => {
                         filterStore.setIsVisible(true);
                     }}
-                    title="Open modal"
-                    textClasses="font-chakra"
-                    containerClasses="border-blue-300 border-2 p-1"
-                />
+                >
+                    <FontAwesome5 name="filter" size={24} color="white" />
+                </TouchableOpacity>
             )}
         </View>
     );
