@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import Button from "../src/components/Button";
@@ -20,12 +20,14 @@ NativeWindStyleSheet.setOutput({
 
 export default function App() {
     const { isFontLoaded } = useFontHook();
+    const [isFetching, setIsFetching] = useState(false);
 
     const pokemonStore = usePokemonStore();
     const pageStore = usePageStore();
     const filterStore = useFilterStore();
 
     const fetchPokemonInformation = async () => {
+        setIsFetching(true);
         const data = await PokemonService.fetchPage(pageStore.pageNumber);
         const pokemonInfo: Pokemon[] = [];
 
@@ -39,6 +41,7 @@ export default function App() {
             ...pokemonStore.filteredPokemonList,
             ...pokemonInfo
         ]);
+        setIsFetching(false);
     };
 
     useEffect(() => {
@@ -96,11 +99,13 @@ export default function App() {
                     ))}
                 </View>
                 <Button
-                    onPress={() =>
-                        pageStore.setPageNumber(pageStore.pageNumber + 1)
-                    }
+                    onPress={() => {
+                        if (!isFetching) {
+                            pageStore.setPageNumber(pageStore.pageNumber + 1);
+                        }
+                    }}
                     title="Load More"
-                    containerClasses="bg-sky-300 mt-3 flex items-center py-4 rounded-2xl"
+                    containerClasses={`${isFetching ? "bg-red-300" : "bg-red-700"} mt-3 flex items-center py-4 rounded-2xl`}
                     textClasses="text-white font-chakra-bold tracking-wide"
                 />
             </ScrollView>
