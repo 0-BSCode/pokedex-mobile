@@ -1,4 +1,4 @@
-import { router } from "expo-router";
+import { router, usePathname } from "expo-router";
 import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
 
@@ -8,9 +8,12 @@ import Modal from "../Modal";
 
 export default function Header() {
     const [isVisible, setIsVisible] = useState(false);
+    const currentRoute = usePathname();
+
+    const isOnIndex = currentRoute === "/";
 
     return (
-        <View className="flex justify-between w-full px-4 py-5 bg-red-800">
+        <View className="flex flex-row justify-between w-full px-4 py-5 bg-red-800">
             <Modal
                 title={"Filters"}
                 isVisible={isVisible}
@@ -22,15 +25,17 @@ export default function Header() {
                     Pokedex
                 </Text>
             </Pressable>
-            <Button
-                isDisabled={false}
-                onPress={() => {
-                    setIsVisible(true);
-                }}
-                title="Open modal"
-                textClasses="font-chakra"
-                containerClasses="border-blue-300 border-2 p-1"
-            />
+            {!isOnIndex && (
+                <Button
+                    isDisabled={false}
+                    onPress={() => {
+                        setIsVisible(true);
+                    }}
+                    title="Open modal"
+                    textClasses="font-chakra"
+                    containerClasses="border-blue-300 border-2 p-1"
+                />
+            )}
         </View>
     );
 }
