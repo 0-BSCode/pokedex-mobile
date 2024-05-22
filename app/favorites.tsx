@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, View, ActivityIndicator } from "react-native";
 
 import Header from "../src/components/Header";
 import HomeTabs from "../src/components/HomeTabs";
@@ -40,7 +40,7 @@ export default function Favorites() {
     ]);
 
     if (!isFontLoaded) {
-        return <Text>Loading...</Text>;
+        return <ActivityIndicator size="large" className="my-3" />;
     }
 
     return (

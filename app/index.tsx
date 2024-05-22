@@ -1,5 +1,11 @@
 import { Link, router } from "expo-router";
-import { Text, View, ScrollView, Platform } from "react-native";
+import {
+    Text,
+    View,
+    ScrollView,
+    Platform,
+    ActivityIndicator
+} from "react-native";
 import Swiper from "react-native-swiper";
 
 import Header from "../src/components/Header";
@@ -12,7 +18,7 @@ export default function Onboarding() {
     const { isFirstLaunch, isLoading } = useOnboardingStatus();
 
     if (!isFontLoaded || isLoading) {
-        return <Text>Loading...</Text>;
+        return <ActivityIndicator size="large" className="my-3" />;
     }
 
     if (!isFirstLaunch) {
