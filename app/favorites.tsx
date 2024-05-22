@@ -39,10 +39,6 @@ export default function Favorites() {
         filterStore.sortOrder
     ]);
 
-    useEffect(() => {
-        pokemonStore.setFilteredPokemonList(pokemonStore.favoritePokemonList);
-    }, []);
-
     if (!isFontLoaded) {
         return <Text>Loading...</Text>;
     }

@@ -72,10 +72,6 @@ export default function App() {
         filterStore.sortOrder
     ]);
 
-    useEffect(() => {
-        pokemonStore.setFilteredPokemonList(pokemonStore.pokemonList);
-    }, []);
-
     if (!isFontLoaded) {
         return <Text>Loading...</Text>;
     }
