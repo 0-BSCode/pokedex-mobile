@@ -1,13 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import Button from "../src/components/Button";
-import Form from "../src/components/Form";
 import Header from "../src/components/Header";
 import HomeTabs from "../src/components/HomeTabs";
-import Modal from "../src/components/Modal";
 import OverviewCard from "../src/components/OverviewCard";
 import PokemonService from "../src/services/pokemonService";
 import useFilterStore from "../src/stores/filterStore";
@@ -20,8 +18,6 @@ NativeWindStyleSheet.setOutput({
 });
 
 export default function App() {
-    const [isVisible, setIsVisible] = useState(false);
-
     const pokemonStore = usePokemonStore();
     const pageStore = usePageStore();
     const filterStore = useFilterStore();
@@ -70,12 +66,6 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <Modal
-                title={"Filters"}
-                isVisible={isVisible}
-                onClose={() => setIsVisible(false)}
-                children={<Form />}
-            />
             <Header openTab={1} />
             <ScrollView
                 style={styles.scrollViewContainer}
@@ -89,7 +79,7 @@ export default function App() {
                     className="flex flex-row flex-wrap justify-center"
                     style={{ gap: 12 }}
                 >
-                    {pokemonStore.pokemonList.map((p) => (
+                    {pokemonStore.filteredPokemonList.map((p) => (
                         <OverviewCard key={p.id} pokemon={p} />
                     ))}
                 </View>

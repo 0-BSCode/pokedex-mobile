@@ -1,5 +1,5 @@
 import Checkbox from "expo-checkbox";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Text, TextInput, View } from "react-native";
 
 import useFilterStore from "../../stores/filterStore";
@@ -9,6 +9,8 @@ import Button from "../Button";
 
 const Form = () => {
     const filterStore = useFilterStore();
+    // Prevents search string from resetting when modal initially renders
+    const isInitialRender = useRef(true);
 
     const isSearchDisabled = filterStore.searchFilterCriteria === undefined;
     const isSearchByName =
@@ -17,8 +19,14 @@ const Form = () => {
     const isSortDisabled = filterStore.sortFilterCriteria === undefined;
 
     useEffect(() => {
-        filterStore.setSearchString("");
+        if (!isInitialRender.current) {
+            filterStore.setSearchString("");
+        }
     }, [filterStore.searchFilterCriteria]);
+
+    useEffect(() => {
+        isInitialRender.current = false;
+    }, []);
 
     return (
         // Form
