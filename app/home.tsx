@@ -18,6 +18,8 @@ import PokemonService from "../src/services/pokemonService";
 import useFilterStore from "../src/stores/filterStore";
 import usePageStore from "../src/stores/pageStore";
 import usePokemonStore from "../src/stores/pokemonStore";
+import useScreenStore from "../src/stores/screenStore";
+import { ScreensEnum } from "../src/types/enums/ScreensEnum";
 import { Pokemon } from "../src/types/interfaces/Pokemon";
 
 NativeWindStyleSheet.setOutput({
@@ -31,6 +33,7 @@ export default function App() {
     const pokemonStore = usePokemonStore();
     const pageStore = usePageStore();
     const filterStore = useFilterStore();
+    const screenStore = useScreenStore();
 
     const fetchPokemonInformation = async () => {
         setIsFetching(true);
@@ -81,6 +84,11 @@ export default function App() {
         filterStore.sortOrder
     ]);
 
+    useEffect(() => {
+        pokemonStore.setFilteredPokemonList(pokemonStore.pokemonList);
+        screenStore.setCurrentScreen(ScreensEnum.HOME);
+    }, []);
+
     if (!isFontLoaded) {
         return <Text>Loading...</Text>;
     }
@@ -119,7 +127,7 @@ export default function App() {
                 />
             </ScrollView>
             <View className="w-[100%] h-12 bg-red-600">
-                <HomeTabs openTab={1} />
+                <HomeTabs openTab={ScreensEnum.FAVORITES} />
             </View>
             <StatusBar style="auto" />
         </View>
