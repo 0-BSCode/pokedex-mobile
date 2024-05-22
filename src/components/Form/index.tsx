@@ -30,7 +30,7 @@ const Form = () => {
 
     return (
         // Form
-        <View className="relative flex gap-y-4 m-auto w-11/12 z-50">
+        <View className="flex gap-y-4 m-auto w-11/12">
             {/* Search checkboxes */}
             <View className="flex gap-y-2">
                 <Text className="text-white font-chakra-medium text-lg">
