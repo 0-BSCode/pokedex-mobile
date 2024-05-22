@@ -13,9 +13,9 @@ interface ModalProps {
 const Modal = ({ title, isVisible, children, onClose }: ModalProps) => {
     return (
         <ReactNativeModal isVisible={isVisible}>
-            <View className="h-fit w-full bg-gray-800 rounded-t-lg">
+            <View className="w-full pb-10 bg-gray-800 rounded-lg">
                 <View className="h-[15%] bg-gray-600 rounded-t-lg px-5 flex flex-row justify-between items-center">
-                    <Text className="text-white text-base font-chakra">
+                    <Text className="text-base text-white font-chakra">
                         {title}
                     </Text>
                     <Pressable onPress={onClose}>
