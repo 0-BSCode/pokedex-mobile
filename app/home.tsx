@@ -1,7 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+    ActivityIndicator,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View
+} from "react-native";
 
 import Button from "../src/components/Button";
 import Header from "../src/components/Header";
@@ -98,6 +104,9 @@ export default function App() {
                         <OverviewCard key={p.id} pokemon={p} />
                     ))}
                 </View>
+                {isFetching && (
+                    <ActivityIndicator size="large" className="my-3" />
+                )}
                 <Button
                     onPress={() => {
                         if (!isFetching) {
