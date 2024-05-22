@@ -18,7 +18,7 @@ export default function DetailsPage() {
     const { id } = useLocalSearchParams();
     const { pokemonList } = usePokemonStore();
 
-    const viewedPokemon = pokemonList[Number(id) - 1];
+    const viewedPokemon = pokemonList.filter((p) => p.id === Number(id))[0];
 
     return (
         <View
