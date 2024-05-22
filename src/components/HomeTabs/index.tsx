@@ -19,13 +19,17 @@ export default function HomeTabs({ openTab }: HomeTabsProps) {
             : "flex items-center flex-1 justify-center bg-black/40";
 
     const handleOnPress = (newScreen: ScreensEnum) => {
-        console.log(`Going to ${newScreen}`);
+        // Set filteredList to appropriate list
         const newList =
             newScreen === ScreensEnum.HOME
                 ? pokemonStore.pokemonList
                 : pokemonStore.favoritePokemonList;
         pokemonStore.setFilteredPokemonList(newList);
+
+        // Take note of new screen
         screenStore.setCurrentScreen(newScreen);
+
+        // Navigate to new screen
         router.replace(newScreen);
     };
 
