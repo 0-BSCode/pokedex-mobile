@@ -4,6 +4,7 @@ import { View, Pressable, Text } from "react-native";
 
 import usePokemonStore from "../../stores/pokemonStore";
 import useScreenStore from "../../stores/screenStore";
+import { ScreensEnum } from "../../types/enums/ScreensEnum";
 import { Pokemon } from "../../types/interfaces/Pokemon";
 
 interface DetailsHeaderProps {
@@ -11,23 +12,33 @@ interface DetailsHeaderProps {
 }
 
 export default function DetailsHeader({ viewedPokemon }: DetailsHeaderProps) {
-    const { favoritePokemonList, setFavoritePokemonList } = usePokemonStore();
+    const pokemonStore = usePokemonStore();
     const screenStore = useScreenStore();
 
     const isFavoritePokemon = () =>
-        favoritePokemonList.filter((p) => p.id === viewedPokemon.id).length !==
-        0;
+        pokemonStore.favoritePokemonList.filter(
+            (p) => p.id === viewedPokemon.id
+        ).length !== 0;
 
     const handleAddToFavorites = () => {
-        const newFavoritesList = [...favoritePokemonList, viewedPokemon];
+        const newFavoritesList = [
+            ...pokemonStore.favoritePokemonList,
+            viewedPokemon
+        ];
         const sortedList = newFavoritesList.sort((a, b) => a.id - b.id);
-        setFavoritePokemonList(sortedList);
+        pokemonStore.setFavoritePokemonList(sortedList);
     };
 
     const handleRemoveFromFavorites = () => {
-        setFavoritePokemonList(
-            favoritePokemonList.filter((p) => p.id !== viewedPokemon.id)
+        const updatedFavoritesList = pokemonStore.favoritePokemonList.filter(
+            (p) => p.id !== viewedPokemon.id
         );
+        pokemonStore.setFavoritePokemonList(updatedFavoritesList);
+
+        // Prevents unfavorited Pokemon from showing whenn navigating back to favorites screen
+        if (screenStore.currentScreen === ScreensEnum.FAVORITES) {
+            pokemonStore.setFilteredPokemonList(updatedFavoritesList);
+        }
     };
 
     return (
