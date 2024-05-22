@@ -1,16 +1,43 @@
 import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
 import { ScrollView, Text, View } from "react-native";
 
 import Header from "../src/components/Header";
 import HomeTabs from "../src/components/HomeTabs";
 import OverviewCard from "../src/components/OverviewCard";
 import useFontHook from "../src/hooks/useFontHook";
+import useFilterStore from "../src/stores/filterStore";
 import usePokemonStore from "../src/stores/pokemonStore";
 
 export default function Favorites() {
     const { isFontLoaded } = useFontHook();
 
-    const { favoritePokemonList } = usePokemonStore();
+    const pokemonStore = usePokemonStore();
+    const filterStore = useFilterStore();
+
+    // Whenever Pokemon are fetched or filters change, update filteredPokemon to apply filters
+    useEffect(() => {
+        if (filterStore.searchFilterCriteria) {
+            pokemonStore.searchPokemon(
+                filterStore.searchFilterCriteria,
+                filterStore.searchString,
+                pokemonStore.favoritePokemonList
+            );
+        }
+
+        if (filterStore.sortFilterCriteria && filterStore.sortOrder) {
+            pokemonStore.sortPokemon(
+                filterStore.sortFilterCriteria,
+                filterStore.sortOrder
+            );
+        }
+    }, [
+        pokemonStore.pokemonList,
+        filterStore.searchFilterCriteria,
+        filterStore.searchString,
+        filterStore.sortFilterCriteria,
+        filterStore.sortOrder
+    ]);
 
     if (!isFontLoaded) {
         return <Text>Loading...</Text>;
@@ -31,7 +58,7 @@ export default function Favorites() {
                     className="flex flex-row flex-wrap justify-center"
                     style={{ gap: 12 }}
                 >
-                    {favoritePokemonList.map((p) => (
+                    {pokemonStore.filteredPokemonList.map((p) => (
                         <OverviewCard key={p.id} pokemon={p} />
                     ))}
                 </View>
