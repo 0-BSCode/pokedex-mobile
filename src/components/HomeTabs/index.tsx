@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { View, Text, Pressable, Button } from "react-native";
+import { View, Text, Pressable } from "react-native";
 
 interface HomeTabsProps {
     openTab: number;

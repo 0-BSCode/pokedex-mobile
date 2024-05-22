@@ -1,23 +1,15 @@
-import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { NativeWindStyleSheet } from "nativewind";
 import { useEffect } from "react";
-import {
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
-    Pressable
-} from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import determineTypeColor from "../src/_utils/determineTypeColor";
 import Button from "../src/components/Button";
 import Header from "../src/components/Header";
 import HomeTabs from "../src/components/HomeTabs";
 import OverviewCard from "../src/components/OverviewCard";
 import useFontHook from "../src/hooks/useFontHook";
 import PokemonService from "../src/services/pokemonService";
+import useFilterStore from "../src/stores/filterStore";
 import usePageStore from "../src/stores/pageStore";
 import usePokemonStore from "../src/stores/pokemonStore";
 import { Pokemon } from "../src/types/interfaces/Pokemon";
@@ -29,11 +21,12 @@ NativeWindStyleSheet.setOutput({
 export default function App() {
     const { isFontLoaded } = useFontHook();
 
-    const { pokemonList, setPokemonList } = usePokemonStore();
-    const { pageNumber, setPageNumber } = usePageStore();
+    const pokemonStore = usePokemonStore();
+    const pageStore = usePageStore();
+    const filterStore = useFilterStore();
 
     const fetchPokemonInformation = async () => {
-        const data = await PokemonService.fetchPage(pageNumber);
+        const data = await PokemonService.fetchPage(pageStore.pageNumber);
         const pokemonInfo: Pokemon[] = [];
 
         for (const result of data.results) {
@@ -41,12 +34,43 @@ export default function App() {
             pokemonInfo.push(pokemon);
         }
 
-        setPokemonList([...pokemonList, ...pokemonInfo]);
+        pokemonStore.extendPokemonList(pokemonInfo);
+        pokemonStore.setFilteredPokemonList([
+            ...pokemonStore.filteredPokemonList,
+            ...pokemonInfo
+        ]);
     };
 
     useEffect(() => {
-        fetchPokemonInformation();
-    }, [pageNumber]);
+        if (pageStore.pageNumber !== pageStore.previousPage) {
+            fetchPokemonInformation();
+            pageStore.setPreviousPage(pageStore.pageNumber);
+        }
+    }, [pageStore.pageNumber]);
+
+    // Whenever Pokemon are fetched or filters change, update filteredPokemon to apply filters
+    useEffect(() => {
+        if (filterStore.searchFilterCriteria) {
+            pokemonStore.searchPokemon(
+                filterStore.searchFilterCriteria,
+                filterStore.searchString,
+                pokemonStore.pokemonList
+            );
+        }
+
+        if (filterStore.sortFilterCriteria && filterStore.sortOrder) {
+            pokemonStore.sortPokemon(
+                filterStore.sortFilterCriteria,
+                filterStore.sortOrder
+            );
+        }
+    }, [
+        pokemonStore.pokemonList,
+        filterStore.searchFilterCriteria,
+        filterStore.searchString,
+        filterStore.sortFilterCriteria,
+        filterStore.sortOrder
+    ]);
 
     if (!isFontLoaded) {
         return <Text>Loading...</Text>;
@@ -55,7 +79,6 @@ export default function App() {
     return (
         <View style={styles.container}>
             <Header />
-
             <ScrollView
                 style={styles.scrollViewContainer}
                 contentContainerStyle={{
@@ -68,27 +91,17 @@ export default function App() {
                     className="flex flex-row flex-wrap justify-center"
                     style={{ gap: 12 }}
                 >
-                    {pokemonList.map((p) => (
+                    {pokemonStore.filteredPokemonList.map((p) => (
                         <OverviewCard key={p.id} pokemon={p} />
                     ))}
                 </View>
                 <Button
-                    onPress={() => setPageNumber(pageNumber + 1)}
+                    onPress={() =>
+                        pageStore.setPageNumber(pageStore.pageNumber + 1)
+                    }
                     title="Load More"
-                    containerStyles={{
-                        backgroundColor: "skyblue",
-                        marginTop: 12,
-                        display: "flex",
-                        alignItems: "center",
-                        paddingVertical: 16,
-                        borderRadius: 12
-                    }}
-                    textStyles={{
-                        color: "white",
-                        fontFamily: "Chakra-Regular",
-                        letterSpacing: 2.5,
-                        fontWeight: "700"
-                    }}
+                    containerClasses="bg-sky-300 mt-3 flex items-center py-4 rounded-2xl"
+                    textClasses="text-white font-chakra-bold tracking-wide"
                 />
             </ScrollView>
             <View className="w-[100%] h-12 bg-red-600">

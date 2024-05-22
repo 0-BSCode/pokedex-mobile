@@ -1,21 +1,27 @@
-import { TouchableOpacity, Text, ViewStyle, TextStyle } from "react-native";
+import { TouchableOpacity, Text } from "react-native";
 
 interface ButtonProps {
+    isDisabled?: boolean;
     onPress: () => void;
-    containerStyles: ViewStyle;
+    containerClasses: string;
     title: string;
-    textStyles: TextStyle;
+    textClasses: string;
 }
 
 const Button = ({
+    isDisabled,
     onPress,
     title,
-    containerStyles,
-    textStyles
+    containerClasses,
+    textClasses
 }: ButtonProps) => {
     return (
-        <TouchableOpacity onPress={onPress} style={containerStyles}>
-            <Text style={textStyles}>{title}</Text>
+        <TouchableOpacity
+            onPress={onPress}
+            className={containerClasses}
+            disabled={isDisabled ?? false}
+        >
+            <Text className={textClasses}>{title}</Text>
         </TouchableOpacity>
     );
 };
