@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { ScrollView, View, ActivityIndicator } from "react-native";
+import { ScrollView, View, ActivityIndicator, Text } from "react-native";
 
 import Header from "../src/components/Header";
 import HomeTabs from "../src/components/HomeTabs";
@@ -61,9 +61,15 @@ export default function Favorites() {
                     className="flex flex-row flex-wrap justify-center"
                     style={{ gap: 12 }}
                 >
-                    {pokemonStore.filteredPokemonList.map((p) => (
-                        <OverviewCard key={p.id} pokemon={p} />
-                    ))}
+                    {pokemonStore.filteredPokemonList.length > 0 ? (
+                        pokemonStore.filteredPokemonList.map((p) => (
+                            <OverviewCard key={p.id} pokemon={p} />
+                        ))
+                    ) : (
+                        <Text className="text-lg font-chakra text-center text-gray-500">
+                            No favorites yet.
+                        </Text>
+                    )}
                 </View>
             </ScrollView>
             <View className="w-[100%] h-12 bg-red-600">
