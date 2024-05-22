@@ -8,12 +8,15 @@ import OverviewCard from "../src/components/OverviewCard";
 import useFontHook from "../src/hooks/useFontHook";
 import useFilterStore from "../src/stores/filterStore";
 import usePokemonStore from "../src/stores/pokemonStore";
+import useScreenStore from "../src/stores/screenStore";
+import { ScreensEnum } from "../src/types/enums/ScreensEnum";
 
 export default function Favorites() {
     const { isFontLoaded } = useFontHook();
 
     const pokemonStore = usePokemonStore();
     const filterStore = useFilterStore();
+    const screenStore = useScreenStore();
 
     // Whenever Pokemon are fetched or filters change, update filteredPokemon to apply filters
     useEffect(() => {
@@ -64,7 +67,7 @@ export default function Favorites() {
                 </View>
             </ScrollView>
             <View className="w-[100%] h-12 bg-red-600">
-                <HomeTabs openTab={2} />
+                <HomeTabs openTab={ScreensEnum.HOME} />
             </View>
             <StatusBar style="auto" />
         </View>

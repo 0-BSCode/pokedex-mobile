@@ -4,6 +4,7 @@ import { Image, Pressable, Text, View } from "react-native";
 import capitalizeString from "../../_utils/capitalizeString";
 import determineTypeColor from "../../_utils/determineTypeColor";
 import { Pokemon } from "../../types/interfaces/Pokemon";
+import TypeIcon from "../TypeIcon";
 
 type OverviewCardProps = {
     pokemon: Pokemon;
@@ -21,17 +22,18 @@ const OverviewCard = ({ pokemon }: OverviewCardProps) => {
             <View style={{ display: "flex" }}>
                 <Pressable onPress={() => router.push(`details/${pokemon.id}`)}>
                     <Text className="font-chakra-light text-gray-100 text-right text-xs">
-                        {pokemon.id.toString().padStart(3, "0")}
+                        #{pokemon.id.toString().padStart(3, "0")}
                     </Text>
                     <Text className="font-chakra-bold text-white tracking-wider text-base">
                         {capitalizeString(pokemon.name)}
                     </Text>
-                    <View className="flex gap-1 mt-1">
+                    <View className="flex flex-row mt-1 gap-1">
                         {pokemon.types.map((t) => (
-                            <View key={`${pokemon.id}-${t}`}>
-                                <Text className="text-white text-xs font-chakra">
-                                    {capitalizeString(t)}
-                                </Text>
+                            <View
+                                key={`${pokemon.id}-${t}`}
+                                className="bg-white/50 rounded-3xl p-1 flex items-center w-7"
+                            >
+                                <TypeIcon type={t} />
                             </View>
                         ))}
                     </View>

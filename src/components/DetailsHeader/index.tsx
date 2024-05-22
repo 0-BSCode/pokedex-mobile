@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import { View, Pressable, Text } from "react-native";
 
 import usePokemonStore from "../../stores/pokemonStore";
+import useScreenStore from "../../stores/screenStore";
 import { Pokemon } from "../../types/interfaces/Pokemon";
 
 interface DetailsHeaderProps {
@@ -11,6 +12,7 @@ interface DetailsHeaderProps {
 
 export default function DetailsHeader({ viewedPokemon }: DetailsHeaderProps) {
     const { favoritePokemonList, setFavoritePokemonList } = usePokemonStore();
+    const screenStore = useScreenStore();
 
     const isFavoritePokemon = () =>
         favoritePokemonList.filter((p) => p.id === viewedPokemon.id).length !==
@@ -30,7 +32,9 @@ export default function DetailsHeader({ viewedPokemon }: DetailsHeaderProps) {
 
     return (
         <View className="flex flex-row justify-between px-4 pb-4">
-            <Pressable onPress={() => router.replace("/home")}>
+            <Pressable
+                onPress={() => router.replace(screenStore.currentScreen)}
+            >
                 <Ionicons name="arrow-back-outline" size={32} color="white" />
             </Pressable>
             <Pressable

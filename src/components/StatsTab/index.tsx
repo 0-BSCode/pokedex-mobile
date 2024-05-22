@@ -34,9 +34,9 @@ export default function StatsTab({ viewedPokemon }: StatsTabProps) {
                     ))}
                 </View>
                 <View className="flex-1">
-                    {viewedPokemon.stats.map((stat) => (
+                    {viewedPokemon.stats.map((stat, idx) => (
                         <View
-                            key={stat.baseStat}
+                            key={`stats-${idx}`}
                             className="flex flex-row items-center gap-4 mb-2"
                         >
                             <Text className="text-base text-black font-chakra-bold">
