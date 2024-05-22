@@ -16,7 +16,9 @@ export default function DetailsHeader({ viewedPokemon }: DetailsHeaderProps) {
         0;
 
     const handleAddToFavorites = () => {
-        setFavoritePokemonList([...favoritePokemonList, viewedPokemon]);
+        const newFavoritesList = [...favoritePokemonList, viewedPokemon];
+        const sortedList = newFavoritesList.sort((a, b) => a.id - b.id);
+        setFavoritePokemonList(sortedList);
     };
 
     const handleRemoveFromFavorites = () => {
