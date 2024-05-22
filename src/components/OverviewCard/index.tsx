@@ -22,7 +22,7 @@ const OverviewCard = ({ pokemon }: OverviewCardProps) => {
             <View style={{ display: "flex" }}>
                 <Pressable onPress={() => router.push(`details/${pokemon.id}`)}>
                     <Text className="font-chakra-light text-gray-100 text-right text-xs">
-                        {pokemon.id.toString().padStart(3, "0")}
+                        #{pokemon.id.toString().padStart(3, "0")}
                     </Text>
                     <Text className="font-chakra-bold text-white tracking-wider text-base">
                         {capitalizeString(pokemon.name)}
