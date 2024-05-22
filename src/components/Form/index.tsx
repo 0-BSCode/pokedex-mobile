@@ -30,7 +30,7 @@ const Form = () => {
 
     return (
         // Form
-        <View className="flex gap-y-4 m-auto w-11/12">
+        <View className="relative flex gap-y-4 m-auto w-11/12 z-50">
             {/* Search checkboxes */}
             <View className="flex gap-y-2">
                 <Text className="text-white font-chakra-medium text-lg">
@@ -45,7 +45,7 @@ const Form = () => {
                                 filterStore.searchFilterCriteria ===
                                 FilterCriteriaEnum.NAME
                             }
-                            onChange={() =>
+                            onValueChange={() =>
                                 filterStore.setSearchFilterCriteria(
                                     FilterCriteriaEnum.NAME
                                 )
@@ -62,7 +62,7 @@ const Form = () => {
                                 filterStore.searchFilterCriteria ===
                                 FilterCriteriaEnum.ID
                             }
-                            onChange={() =>
+                            onValueChange={() =>
                                 filterStore.setSearchFilterCriteria(
                                     FilterCriteriaEnum.ID
                                 )
@@ -81,8 +81,8 @@ const Form = () => {
                             ? "Enter Pokemon Info..."
                             : `Enter Pokemon ${isSearchByName ? "Name" : "ID"}`
                     }
-                    editable={!isSearchDisabled}
-                    selectTextOnFocus={!isSearchDisabled}
+                    // editable={!isSearchDisabled}
+                    // selectTextOnFocus={!isSearchDisabled}
                     value={filterStore.searchString}
                     onChangeText={(text) => {
                         filterStore.setSearchString(text);
@@ -103,7 +103,7 @@ const Form = () => {
                                 filterStore.sortFilterCriteria ===
                                 FilterCriteriaEnum.NAME
                             }
-                            onChange={() =>
+                            onValueChange={() =>
                                 filterStore.setSortFilterCriteria(
                                     FilterCriteriaEnum.NAME
                                 )
@@ -120,7 +120,7 @@ const Form = () => {
                                 filterStore.sortFilterCriteria ===
                                 FilterCriteriaEnum.ID
                             }
-                            onChange={() =>
+                            onValueChange={() =>
                                 filterStore.setSortFilterCriteria(
                                     FilterCriteriaEnum.ID
                                 )

@@ -1,6 +1,7 @@
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { ReactElement } from "react";
-import { Modal as ExpoModal, View, Text, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native";
+import ReactNativeModal from "react-native-modal";
 
 interface ModalProps {
     title: string;
@@ -11,8 +12,8 @@ interface ModalProps {
 
 const Modal = ({ title, isVisible, children, onClose }: ModalProps) => {
     return (
-        <ExpoModal animationType="slide" transparent={true} visible={isVisible}>
-            <View className="h-2/4 w-full bg-gray-800 rounded-t-lg absolute bottom-0">
+        <ReactNativeModal isVisible={isVisible}>
+            <View className="h-fit w-full bg-gray-800 rounded-t-lg">
                 <View className="h-[15%] bg-gray-600 rounded-t-lg px-5 flex flex-row justify-between items-center">
                     <Text className="text-white text-base font-chakra">
                         {title}
@@ -23,7 +24,7 @@ const Modal = ({ title, isVisible, children, onClose }: ModalProps) => {
                 </View>
                 {children}
             </View>
-        </ExpoModal>
+        </ReactNativeModal>
     );
 };
 

@@ -1,13 +1,13 @@
 import { router, usePathname } from "expo-router";
-import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
 
+import useFilterStore from "../../stores/filterStore";
 import Button from "../Button";
 import Form from "../Form";
 import Modal from "../Modal";
 
 export default function Header() {
-    const [isVisible, setIsVisible] = useState(false);
+    const filterStore = useFilterStore();
     const currentRoute = usePathname();
 
     const isOnIndex = currentRoute === "/";
@@ -16,8 +16,8 @@ export default function Header() {
         <View className="flex flex-row justify-between w-full px-4 py-5 bg-red-800">
             <Modal
                 title={"Filters"}
-                isVisible={isVisible}
-                onClose={() => setIsVisible(false)}
+                isVisible={filterStore.isVisible}
+                onClose={() => filterStore.setIsVisible(false)}
                 children={<Form />}
             />
             <Pressable onPress={() => router.replace("")}>
@@ -29,7 +29,7 @@ export default function Header() {
                 <Button
                     isDisabled={false}
                     onPress={() => {
-                        setIsVisible(true);
+                        filterStore.setIsVisible(true);
                     }}
                     title="Open modal"
                     textClasses="font-chakra"

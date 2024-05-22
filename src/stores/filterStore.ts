@@ -4,6 +4,10 @@ import { FilterCriteriaEnum } from "../types/enums/FilterCriteriaEnum";
 import { SortOrderEnum } from "../types/enums/SortOrderEnum";
 
 type FilterStore = {
+    // Filter Modal
+    isVisible: boolean;
+    setIsVisible: (value: boolean) => void;
+
     // Searching
     searchFilterCriteria: FilterCriteriaEnum | undefined;
     setSearchFilterCriteria: (value: FilterCriteriaEnum) => void;
@@ -18,6 +22,10 @@ type FilterStore = {
 };
 
 const useFilterStore = create<FilterStore>()((set) => ({
+    // Filter modal
+    isVisible: false,
+    setIsVisible: (value: boolean) => set((state) => ({ isVisible: value })),
+
     // Searching
     searchFilterCriteria: undefined,
     setSearchFilterCriteria: (value: FilterCriteriaEnum) =>
